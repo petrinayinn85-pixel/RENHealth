@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { translations, Language } from './translations';
 import { 
   Leaf, 
   Clock, 
@@ -13,7 +14,8 @@ import {
   Coffee,
   Moon,
   Sun,
-  Droplets
+  Droplets,
+  Globe
 } from 'lucide-react';
 
 // --- Types ---
@@ -142,28 +144,52 @@ const TESTIMONIALS = [
 
 // --- Components ---
 
-const Navbar = () => {
+const Navbar = ({ language, setLanguage }: { language: Language, setLanguage: (l: Language) => void }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const t = translations[language].nav;
 
   return (
-    <nav className="fixed w-full z-50 bg-ren-cream/80 backdrop-blur-md border-b border-ren-pink-rose/10">
+    <nav className="fixed w-full z-50 bg-ren-cream/80 backdrop-blur-md border-b border-ren-gold/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           <div className="flex-shrink-0 flex items-center">
-            <span className="font-sans text-3xl font-light tracking-tight text-ren-ink">rén</span>
+            <span className="font-serif text-3xl font-light tracking-tight text-ren-ink">rén</span>
           </div>
           
           <div className="hidden md:flex space-x-8 items-center">
-            <a href="#confinement" className="text-sm font-medium hover:text-ren-pink-rose transition-colors uppercase tracking-widest">Confinement</a>
-            <a href="#teas" className="text-sm font-medium hover:text-ren-pink-rose transition-colors uppercase tracking-widest">Herbal Teas</a>
-            <a href="#about" className="text-sm font-medium hover:text-ren-pink-rose transition-colors uppercase tracking-widest">Our Story</a>
-            <a href="#contact" className="text-sm font-medium hover:text-ren-pink-rose transition-colors uppercase tracking-widest">Contact</a>
-            <button className="bg-ren-pink-rose text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-opacity-90 transition-all">
-              Shop Now
+            <a href="#confinement" className="text-[10px] font-bold hover:text-ren-gold transition-colors uppercase tracking-[0.2em]">{t.confinement}</a>
+            <a href="#teas" className="text-[10px] font-bold hover:text-ren-gold transition-colors uppercase tracking-[0.2em]">{t.teas}</a>
+            <a href="#about" className="text-[10px] font-bold hover:text-ren-gold transition-colors uppercase tracking-[0.2em]">{t.story}</a>
+            <a href="#contact" className="text-[10px] font-bold hover:text-ren-gold transition-colors uppercase tracking-[0.2em]">{t.contact}</a>
+            
+            <div className="flex items-center gap-2 border-l border-ren-gold/20 pl-8 ml-4">
+              <button 
+                onClick={() => setLanguage('en')}
+                className={`text-[10px] font-bold transition-colors ${language === 'en' ? 'text-ren-gold' : 'text-ren-ink/40 hover:text-ren-gold'}`}
+              >
+                EN
+              </button>
+              <span className="text-[10px] text-ren-gold/20">|</span>
+              <button 
+                onClick={() => setLanguage('zh')}
+                className={`text-[10px] font-bold transition-colors ${language === 'zh' ? 'text-ren-gold' : 'text-ren-ink/40 hover:text-ren-gold'}`}
+              >
+                中文
+              </button>
+            </div>
+
+            <button className="bg-ren-ink text-white px-8 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-ren-gold transition-all">
+              {t.shop}
             </button>
           </div>
 
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-4">
+            <button 
+              onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}
+              className="p-2 text-ren-gold"
+            >
+              <Globe size={20} />
+            </button>
             <button onClick={() => setIsOpen(!isOpen)} className="p-2">
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -178,14 +204,14 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-ren-cream border-b border-ren-pink-rose/10 overflow-hidden"
+            className="md:hidden bg-ren-cream border-b border-ren-gold/10 overflow-hidden"
           >
             <div className="px-4 pt-2 pb-6 space-y-4">
-              <a href="#confinement" onClick={() => setIsOpen(false)} className="block text-lg font-serif">Confinement Care</a>
-              <a href="#teas" onClick={() => setIsOpen(false)} className="block text-lg font-serif">Herbal Tea Series</a>
-              <a href="#about" onClick={() => setIsOpen(false)} className="block text-lg font-serif">Our Story</a>
-              <a href="#contact" onClick={() => setIsOpen(false)} className="block text-lg font-serif">Contact Us</a>
-              <button className="w-full bg-ren-pink-rose text-white py-3 rounded-full font-medium">Shop Now</button>
+              <a href="#confinement" onClick={() => setIsOpen(false)} className="block text-lg font-serif">{t.confinement}</a>
+              <a href="#teas" onClick={() => setIsOpen(false)} className="block text-lg font-serif">{t.teas}</a>
+              <a href="#about" onClick={() => setIsOpen(false)} className="block text-lg font-serif">{t.story}</a>
+              <a href="#contact" onClick={() => setIsOpen(false)} className="block text-lg font-serif">{t.contact}</a>
+              <button className="w-full bg-ren-ink text-white py-3 rounded-full font-bold uppercase tracking-widest text-xs">{t.shop}</button>
             </div>
           </motion.div>
         )}
@@ -194,7 +220,9 @@ const Navbar = () => {
   );
 };
 
-const Hero = () => {
+const Hero = ({ language }: { language: Language }) => {
+  const t = translations[language].hero;
+
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -213,34 +241,34 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="flex items-center gap-3 mb-6">
-              <span className="inline-block px-4 py-1 rounded-full border border-ren-pink-rose/30 text-ren-pink-rose text-xs font-semibold tracking-widest uppercase">
-                Modern Herbal Wisdom
+            <div className="flex items-center gap-3 mb-8">
+              <span className="inline-block px-4 py-1 rounded-full border border-ren-gold/30 text-ren-gold text-[10px] font-bold tracking-[0.2em] uppercase">
+                {t.badge}
               </span>
-              <div className="flex items-center gap-2 bg-ren-pink-rose/10 px-3 py-1 rounded-full border border-ren-pink-rose/20">
+              <div className="flex items-center gap-2 bg-ren-gold/5 px-3 py-1 rounded-full border border-ren-gold/10">
                 <img 
                   src={LOGOS.motherhoodChoice} 
-                  className="w-4 h-4 rounded-full object-contain bg-white" 
+                  className="w-4 h-4 rounded-full object-contain grayscale opacity-70" 
                   alt="Award"
                   referrerPolicy="no-referrer"
                 />
-                <span className="text-[10px] font-bold text-ren-pink-rose uppercase tracking-tighter">Best Postnatal Recovery Essential</span>
+                <span className="text-[9px] font-bold text-ren-gold uppercase tracking-widest">{t.award}</span>
               </div>
             </div>
-            <h1 className="text-6xl md:text-8xl font-serif leading-[0.9] mb-8 text-ren-ink">
-              Prioritize Your <br />
-              <span className="italic text-ren-pink-rose">Wellness</span>, <br />
-              Effortlessly.
+            <h1 className="text-7xl md:text-9xl font-serif leading-[0.85] mb-10 text-ren-ink">
+              {t.title1} <br />
+              <span className="italic text-ren-rose font-light">{t.title2}</span>, <br />
+              {t.title3}
             </h1>
-            <p className="text-lg text-ren-ink/70 max-w-md mb-10 leading-relaxed">
-              REN Health brings premium traditional herbs to the modern woman's doorstep. Recognized as the <span className="font-semibold text-ren-pink-rose">Motherhood Choice Award</span> for Best Postnatal Recovery Essential.
+            <p className="text-lg text-ren-ink/60 max-w-md mb-12 leading-relaxed font-light">
+              {t.desc}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-ren-pink-rose text-white px-10 py-4 rounded-full text-sm font-bold tracking-widest uppercase hover:bg-opacity-90 transition-all shadow-lg shadow-ren-pink-rose/20">
-                Explore Packages
+            <div className="flex flex-col sm:flex-row gap-6">
+              <button className="bg-ren-ink text-white px-12 py-5 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-ren-gold transition-all shadow-xl shadow-ren-ink/10">
+                {t.ctaPrimary}
               </button>
-              <button className="border border-ren-pink-rose text-ren-pink-rose px-10 py-4 rounded-full text-sm font-bold tracking-widest uppercase hover:bg-ren-pink-rose hover:text-white transition-all">
-                Our Story
+              <button className="border border-ren-ink/20 text-ren-ink px-12 py-5 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-ren-ink hover:text-white transition-all">
+                {t.ctaSecondary}
               </button>
             </div>
           </motion.div>
@@ -261,15 +289,15 @@ const Hero = () => {
               ></iframe>
             </div>
             <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl max-w-[200px]">
-              <div className="flex items-center gap-2 text-ren-pink-muted mb-2">
+              <div className="flex items-center gap-2 text-ren-gold mb-2">
                 <Star size={16} fill="currentColor" />
                 <Star size={16} fill="currentColor" />
                 <Star size={16} fill="currentColor" />
                 <Star size={16} fill="currentColor" />
                 <Star size={16} fill="currentColor" />
               </div>
-              <p className="text-xs font-medium italic">"The most convenient confinement care I've experienced."</p>
-              <p className="text-[10px] uppercase tracking-widest mt-2 opacity-50">— Sarah L.</p>
+              <p className="text-xs font-medium italic">"{t.testimonial}"</p>
+              <p className="text-[10px] uppercase tracking-widest mt-2 opacity-50">— {t.author}</p>
             </div>
           </motion.div>
         </div>
@@ -278,31 +306,28 @@ const Hero = () => {
   );
 };
 
-const Features = () => {
-  const items = [
-    { icon: <Leaf className="text-ren-pink-rose" />, title: "Premium Herbs", desc: "Sourced from the finest growers, ensuring maximum potency." },
-    { icon: <Clock className="text-ren-pink-rose" />, title: "Time-Saving", desc: "Pre-measured and ready-to-brew for your busy schedule." },
-    { icon: <Heart className="text-ren-pink-rose" />, title: "Female Focused", desc: "Tailored specifically for women's unique physiological needs." },
-  ];
+const Features = ({ language }: { language: Language }) => {
+  const t = translations[language].features;
+  const icons = [<Leaf className="text-ren-gold" />, <Clock className="text-ren-gold" />, <Heart className="text-ren-gold" />];
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {items.map((item, idx) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
+          {t.map((item, idx) => (
             <motion.div 
               key={idx}
               whileInView={{ opacity: 1, y: 0 }}
               initial={{ opacity: 0, y: 20 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.2 }}
-              className="text-center"
+              className="text-center group"
             >
-              <div className="w-16 h-16 bg-ren-cream rounded-full flex items-center justify-center mx-auto mb-6">
-                {item.icon}
+              <div className="w-20 h-20 bg-ren-sand rounded-full flex items-center justify-center mx-auto mb-8 group-hover:bg-ren-gold/10 transition-colors">
+                {icons[idx]}
               </div>
-              <h3 className="text-2xl font-serif mb-4">{item.title}</h3>
-              <p className="text-ren-ink/60 text-sm leading-relaxed">{item.desc}</p>
+              <h3 className="text-2xl font-serif mb-4 text-ren-ink">{item.title}</h3>
+              <p className="text-ren-ink/50 text-sm leading-relaxed max-w-xs mx-auto font-light">{item.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -311,39 +336,43 @@ const Features = () => {
   );
 };
 
-const ConfinementSection = () => {
+const ConfinementSection = ({ language }: { language: Language }) => {
+  const t = translations[language].confinement;
+
   return (
-    <section id="confinement" className="py-24 bg-ren-cream">
+    <section id="confinement" className="py-32 bg-ren-sand/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-serif mb-4">Confinement Packages</h2>
-          <p className="text-ren-ink/60 max-w-xl mx-auto">Traditional recovery made modern. Choose the duration that fits your healing journey.</p>
+        <div className="text-center mb-20">
+          <span className="text-ren-gold font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">{t.label}</span>
+          <h2 className="text-6xl font-serif mb-6 text-ren-ink">{t.title}</h2>
+          <p className="text-ren-ink/50 max-w-xl mx-auto font-light">{t.desc}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {CONFINEMENT_PACKAGES.map((pkg, idx) => (
             <motion.div
               key={pkg.id}
               whileHover={{ y: -10 }}
-              className="bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all border border-ren-pink-rose/5"
+              className="bg-white rounded-[40px] overflow-hidden shadow-sm hover:shadow-2xl transition-all border border-ren-gold/5 group"
             >
-              <div className="aspect-[4/5] overflow-hidden">
-                <img src={pkg.image} className="w-full h-full object-cover" alt={pkg.name} referrerPolicy="no-referrer" />
+              <div className="aspect-[4/5] overflow-hidden relative">
+                <img src={pkg.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" alt={t.packages[idx].name} referrerPolicy="no-referrer" />
+                <div className="absolute inset-0 bg-ren-ink/5 group-hover:bg-transparent transition-colors" />
               </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-serif mb-2">{pkg.name}</h3>
-                <p className="text-ren-ink/60 text-sm mb-6">{pkg.description}</p>
-                <ul className="space-y-3 mb-8">
-                  {pkg.features?.map((f, i) => (
-                    <li key={i} className="flex items-center gap-2 text-xs text-ren-pink-rose font-medium">
-                      <ChevronRight size={14} /> {f}
+              <div className="p-10">
+                <h3 className="text-3xl font-serif mb-3 text-ren-ink">{t.packages[idx].name}</h3>
+                <p className="text-ren-ink/50 text-sm mb-8 font-light leading-relaxed">{t.packages[idx].desc}</p>
+                <ul className="space-y-4 mb-10">
+                  {t.packages[idx].features?.map((f, i) => (
+                    <li key={i} className="flex items-center gap-3 text-[11px] text-ren-ink/70 font-medium uppercase tracking-widest">
+                      <div className="w-1.5 h-1.5 rounded-full bg-ren-gold/40" /> {f}
                     </li>
                   ))}
                 </ul>
-                <div className="flex items-center justify-between pt-6 border-t border-ren-pink-rose/10">
-                  <span className="text-xl font-serif text-ren-pink-muted">{pkg.price}</span>
-                  <button className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-ren-pink-rose hover:text-ren-pink-muted transition-colors">
-                    Add to Cart <ShoppingBag size={16} />
+                <div className="flex items-center justify-between pt-8 border-t border-ren-gold/10">
+                  <span className="text-2xl font-serif text-ren-gold">{pkg.price}</span>
+                  <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-ren-ink hover:text-ren-gold transition-colors">
+                    {t.addToCart} <ShoppingBag size={16} />
                   </button>
                 </div>
               </div>
@@ -355,81 +384,82 @@ const ConfinementSection = () => {
   );
 };
 
-const TestimonialsSection = () => {
+const TestimonialsSection = ({ language }: { language: Language }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const t = translations[language].testimonials;
 
   const next = () => {
-    setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);
+    setCurrentIndex((prev) => (prev + 1) % t.items.length);
   };
 
   const prev = () => {
-    setCurrentIndex((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+    setCurrentIndex((prev) => (prev - 1 + t.items.length) % t.items.length);
   };
 
   return (
-    <section className="py-24 bg-ren-pink-rose/5 overflow-hidden">
+    <section className="py-32 bg-ren-sand/30 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <span className="text-ren-pink-muted font-bold uppercase tracking-widest text-[10px] mb-4 block">Kind Words</span>
-          <h2 className="text-4xl font-serif">What Our Mothers Say</h2>
+        <div className="text-center mb-20">
+          <span className="text-ren-gold font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">{t.label}</span>
+          <h2 className="text-5xl font-serif text-ren-ink">{t.title}</h2>
         </div>
 
-        <div className="relative max-w-4xl mx-auto">
-          <div className="relative h-[400px] md:h-[300px] flex items-center justify-center">
+        <div className="relative max-w-5xl mx-auto">
+          <div className="relative h-[450px] md:h-[350px] flex items-center justify-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="absolute w-full text-center px-8 md:px-20"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute w-full text-center px-8 md:px-24"
               >
-                <div className="mb-8 flex justify-center">
-                  <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                <div className="mb-10 flex justify-center">
+                  <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-2xl">
                     <img 
                       src={TESTIMONIALS[currentIndex].image} 
-                      alt={TESTIMONIALS[currentIndex].name}
-                      className="w-full h-full object-cover"
+                      alt={t.items[currentIndex].name}
+                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
                       referrerPolicy="no-referrer"
                     />
                   </div>
                 </div>
-                <p className="text-xl md:text-2xl font-serif italic text-ren-ink/80 mb-8 leading-relaxed">
-                  "{TESTIMONIALS[currentIndex].content}"
+                <p className="text-2xl md:text-3xl font-serif italic text-ren-ink/80 mb-10 leading-relaxed font-light">
+                  "{t.items[currentIndex].content}"
                 </p>
                 <div>
-                  <h4 className="text-lg font-bold text-ren-pink-rose">{TESTIMONIALS[currentIndex].name}</h4>
-                  <p className="text-xs uppercase tracking-widest text-ren-ink/40 font-semibold">{TESTIMONIALS[currentIndex].role}</p>
+                  <h4 className="text-xl font-serif text-ren-ink mb-1">{t.items[currentIndex].name}</h4>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-ren-gold font-bold">{t.items[currentIndex].role}</p>
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
 
           {/* Navigation */}
-          <div className="flex justify-center items-center gap-8 mt-12">
+          <div className="flex justify-center items-center gap-12 mt-16">
             <button 
               onClick={prev}
-              className="w-12 h-12 rounded-full border border-ren-pink-rose/20 flex items-center justify-center text-ren-pink-rose hover:bg-ren-pink-rose hover:text-white transition-all"
+              className="w-14 h-14 rounded-full border border-ren-gold/20 flex items-center justify-center text-ren-gold hover:bg-ren-gold hover:text-white transition-all duration-500"
             >
-              <ChevronLeft size={20} />
+              <ChevronLeft size={24} strokeWidth={1.5} />
             </button>
-            <div className="flex gap-2">
-              {TESTIMONIALS.map((_, i) => (
+            <div className="flex gap-3">
+              {t.items.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setCurrentIndex(i)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    currentIndex === i ? 'w-8 bg-ren-pink-muted' : 'bg-ren-pink-rose/20'
+                  className={`h-1 rounded-full transition-all duration-500 ${
+                    currentIndex === i ? 'w-12 bg-ren-gold' : 'w-4 bg-ren-gold/20'
                   }`}
                 />
               ))}
             </div>
             <button 
               onClick={next}
-              className="w-12 h-12 rounded-full border border-ren-pink-rose/20 flex items-center justify-center text-ren-pink-rose hover:bg-ren-pink-rose hover:text-white transition-all"
+              className="w-14 h-14 rounded-full border border-ren-gold/20 flex items-center justify-center text-ren-gold hover:bg-ren-gold hover:text-white transition-all duration-500"
             >
-              <ChevronRight size={20} />
+              <ChevronRight size={24} strokeWidth={1.5} />
             </button>
           </div>
         </div>
@@ -440,50 +470,52 @@ const TestimonialsSection = () => {
 
 const MiscarriageSection = () => {
   return (
-    <section id="miscarriage" className="py-24 bg-white">
+    <section id="miscarriage" className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="order-2 lg:order-1"
           >
-            <span className="text-ren-pink-muted font-bold uppercase tracking-widest text-xs mb-4 block">Specialized Care</span>
-            <h2 className="text-5xl font-serif mb-6">Miscarriage Recovery</h2>
-            <p className="text-ren-ink/60 mb-8 leading-relaxed">
+            <span className="text-ren-gold font-bold uppercase tracking-[0.3em] text-[10px] mb-6 block">Specialized Care</span>
+            <h2 className="text-6xl font-serif mb-8 text-ren-ink">Miscarriage Recovery</h2>
+            <p className="text-ren-ink/50 mb-12 leading-relaxed font-light text-lg">
               We understand that recovery is both physical and emotional. Our 7-day specialized package provides gentle, nourishing support to help your body heal and restore its natural balance during this sensitive time.
             </p>
-            <div className="bg-ren-cream p-8 rounded-[32px] border border-ren-pink-rose/5">
-              <h3 className="text-2xl font-serif mb-4">{MISCARRIAGE_PACKAGE.name}</h3>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            <div className="bg-ren-sand p-12 rounded-[60px] border border-ren-gold/5 shadow-sm">
+              <h3 className="text-3xl font-serif mb-6 text-ren-ink">{MISCARRIAGE_PACKAGE.name}</h3>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
                 {MISCARRIAGE_PACKAGE.features?.map((f, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm text-ren-pink-rose">
-                    <Heart size={14} className="text-ren-pink-muted" /> {f}
+                  <li key={i} className="flex items-center gap-3 text-xs text-ren-ink/70 font-medium uppercase tracking-widest">
+                    <div className="w-1.5 h-1.5 rounded-full bg-ren-gold/40" /> {f}
                   </li>
                 ))}
               </ul>
-              <div className="flex items-center justify-between pt-6 border-t border-ren-pink-rose/10">
-                <span className="text-2xl font-serif text-ren-pink-muted">{MISCARRIAGE_PACKAGE.price}</span>
-                <button className="bg-ren-pink-rose text-white px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-opacity-90 transition-all">
+              <div className="flex items-center justify-between pt-10 border-t border-ren-gold/10">
+                <span className="text-3xl font-serif text-ren-gold">{MISCARRIAGE_PACKAGE.price}</span>
+                <button className="bg-ren-ink text-white px-10 py-4 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-ren-gold transition-all shadow-xl shadow-ren-ink/10">
                   Add to Cart
                 </button>
               </div>
             </div>
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
+            transition={{ duration: 1 }}
             className="order-1 lg:order-2"
           >
-            <div className="aspect-[4/5] rounded-[40px] overflow-hidden shadow-2xl">
+            <div className="aspect-[4/5] rounded-[60px] overflow-hidden shadow-2xl relative">
               <img 
                 src={MISCARRIAGE_PACKAGE.image} 
                 className="w-full h-full object-cover"
                 alt="Miscarriage Recovery Care"
                 referrerPolicy="no-referrer"
               />
+              <div className="absolute inset-0 bg-ren-gold/5 mix-blend-multiply" />
             </div>
           </motion.div>
         </div>
@@ -494,40 +526,41 @@ const MiscarriageSection = () => {
 
 const TeaSection = () => {
   return (
-    <section id="teas" className="py-24 bg-white">
+    <section id="teas" className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
           <div>
-            <h2 className="text-5xl font-serif mb-4">Herbal Tea Series</h2>
-            <p className="text-ren-ink/60 max-w-md">Daily wellness in every sip. Functional blends for the modern lifestyle.</p>
+            <span className="text-ren-gold font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">Daily Rituals</span>
+            <h2 className="text-6xl font-serif mb-6 text-ren-ink">Herbal Tea Series</h2>
+            <p className="text-ren-ink/50 max-w-md font-light">Daily wellness in every sip. Functional blends for the modern lifestyle.</p>
           </div>
-          <button className="text-ren-pink-rose font-bold uppercase tracking-widest text-sm border-b-2 border-ren-pink-rose pb-1 hover:text-ren-pink-muted hover:border-ren-pink-muted transition-all">
+          <button className="text-ren-ink font-bold uppercase tracking-[0.2em] text-[10px] border-b border-ren-gold/30 pb-2 hover:text-ren-gold hover:border-ren-gold transition-all">
             View Full Collection
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {TEA_SERIES.map((tea, idx) => (
             <motion.div
               key={tea.id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
               className="group cursor-pointer"
             >
-              <div className="aspect-square rounded-3xl overflow-hidden mb-6 relative">
+              <div className="aspect-square rounded-[40px] overflow-hidden mb-8 relative shadow-sm group-hover:shadow-2xl transition-all duration-700">
                 <img 
                   src={tea.image} 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" 
                   alt={tea.name} 
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-ren-pink-rose/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-ren-ink/5 group-hover:bg-transparent transition-colors" />
               </div>
-              <h4 className="text-lg font-serif mb-1 group-hover:text-ren-pink-muted transition-colors">{tea.name}</h4>
-              <p className="text-ren-ink/50 text-xs mb-3 line-clamp-1">{tea.description}</p>
-              <span className="text-sm font-medium text-ren-pink-rose">{tea.price}</span>
+              <h4 className="text-xl font-serif mb-2 text-ren-ink group-hover:text-ren-gold transition-colors">{tea.name}</h4>
+              <p className="text-ren-ink/40 text-xs mb-4 line-clamp-1 font-light tracking-wide">{tea.description}</p>
+              <span className="text-sm font-medium text-ren-gold tracking-widest">{tea.price}</span>
             </motion.div>
           ))}
         </div>
@@ -541,8 +574,8 @@ const AboutSection = () => {
     <section id="about" className="py-32 bg-white overflow-hidden relative">
       {/* Decorative Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-ren-pink-rose/5 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 -right-24 w-64 h-64 bg-ren-pink-muted/10 rounded-full blur-3xl" />
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-ren-gold/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 -right-24 w-64 h-64 bg-ren-rose/10 rounded-full blur-3xl" />
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -553,7 +586,7 @@ const AboutSection = () => {
             <div className="flex gap-8 items-start">
               {/* Vertical Rail Text */}
               <div className="hidden sm:block pt-12">
-                <span className="rail-text text-[10px] font-bold uppercase tracking-[0.4em] text-ren-pink-rose/40 whitespace-nowrap" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
+                <span className="rail-text text-[10px] font-bold uppercase tracking-[0.4em] text-ren-gold/40 whitespace-nowrap" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
                   ESTABLISHED 2024 • HERITAGE & HEART
                 </span>
               </div>
@@ -564,7 +597,7 @@ const AboutSection = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 1 }}
-                  className="rounded-[60px] overflow-hidden aspect-[4/5] shadow-2xl relative z-10"
+                  className="rounded-[60px] overflow-hidden aspect-video shadow-2xl relative z-10"
                 >
                   <img 
                     src="/OurStory.jpg" 
@@ -572,7 +605,6 @@ const AboutSection = () => {
                     alt="Our Story"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-ren-pink-rose/10 mix-blend-multiply" />
                 </motion.div>
                 
                 {/* Floating Badge */}
@@ -581,7 +613,7 @@ const AboutSection = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5 }}
-                  className="absolute -bottom-8 -right-8 bg-ren-pink-rose text-white p-8 rounded-full w-32 h-32 flex flex-col items-center justify-center text-center shadow-xl z-20 border-4 border-white"
+                  className="absolute -bottom-8 -right-8 bg-ren-gold text-white p-8 rounded-full w-32 h-32 flex flex-col items-center justify-center text-center shadow-xl z-20 border-4 border-white"
                 >
                   <span className="text-2xl font-serif leading-none">5k+</span>
                   <span className="text-[8px] uppercase tracking-widest font-bold mt-1">Mothers Helped</span>
@@ -599,13 +631,13 @@ const AboutSection = () => {
               transition={{ duration: 0.8 }}
             >
               <div className="flex items-center gap-4 mb-8">
-                <div className="h-[1px] w-12 bg-ren-pink-rose/30" />
-                <span className="text-ren-pink-rose font-bold uppercase tracking-[0.2em] text-[10px]">Our Heart & Heritage</span>
+                <div className="h-[1px] w-12 bg-ren-gold/30" />
+                <span className="text-ren-gold font-bold uppercase tracking-[0.2em] text-[10px]">Our Heart & Heritage</span>
               </div>
               
               <h2 className="text-6xl md:text-7xl font-serif mb-10 leading-[0.9] text-ren-ink">
                 A Love Letter to <br />
-                <span className="italic text-ren-pink-rose font-light">Every Woman</span>
+                <span className="italic text-ren-rose font-light">Every Woman</span>
               </h2>
               
               <div className="space-y-8 text-lg text-ren-ink/70 leading-relaxed max-w-2xl">
@@ -617,11 +649,11 @@ const AboutSection = () => {
                 </p>
                 
                 <div className="relative py-10 my-12">
-                  <div className="absolute inset-0 bg-ren-cream/50 rounded-[40px] -rotate-1" />
+                  <div className="absolute inset-0 bg-ren-sand/50 rounded-[40px] -rotate-1" />
                   <div className="relative px-10">
-                    <Star className="text-ren-pink-rose mb-6" size={24} fill="currentColor" />
+                    <Star className="text-ren-gold mb-6" size={24} fill="currentColor" />
                     <p className="text-xl font-serif italic text-ren-ink leading-relaxed">
-                      "Every one of our formulas is thoughtfully crafted in collaboration with the expert <span className="text-ren-pink-rose font-bold not-italic">TCM specialists from itsHerbs.com</span>, ensuring that you receive the purest, most effective support for your unique journey."
+                      "Every one of our formulas is thoughtfully crafted in collaboration with the expert <span className="text-ren-gold font-bold not-italic">TCM specialists from itsHerbs.com</span>, ensuring that you receive the purest, most effective support for your unique journey."
                     </p>
                   </div>
                 </div>
@@ -631,10 +663,10 @@ const AboutSection = () => {
                 </p>
               </div>
 
-              <div className="mt-16 pt-12 border-t border-ren-pink-rose/10 flex flex-wrap gap-12">
+              <div className="mt-16 pt-12 border-t border-ren-gold/10 flex flex-wrap gap-12">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-ren-pink-rose/10 flex items-center justify-center">
-                    <Leaf className="text-ren-pink-rose" size={20} />
+                  <div className="w-12 h-12 rounded-full bg-ren-gold/10 flex items-center justify-center">
+                    <Leaf className="text-ren-gold" size={20} />
                   </div>
                   <div>
                     <span className="block text-xl font-serif text-ren-ink">100% Natural</span>
@@ -642,12 +674,12 @@ const AboutSection = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-ren-pink-rose/10 flex items-center justify-center">
-                    <Heart className="text-ren-pink-rose" size={20} />
+                  <div className="w-12 h-12 rounded-full bg-ren-gold/10 flex items-center justify-center">
+                    <Heart className="text-ren-gold" size={20} />
                   </div>
                   <div>
-                    <span className="block text-xl font-serif text-ren-ink">TCM Expertly</span>
-                    <span className="text-[10px] uppercase tracking-widest text-ren-ink/40 font-bold">Formulated Support</span>
+                    <span className="block text-xl font-serif text-ren-ink">Expert Formulated</span>
+                    <span className="text-[10px] uppercase tracking-widest text-ren-ink/40 font-bold">TCM Specialists</span>
                   </div>
                 </div>
               </div>
@@ -662,66 +694,65 @@ const AboutSection = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-white pt-24 pb-12 border-t border-ren-pink-rose/10">
+    <footer className="bg-white pt-32 pb-16 border-t border-ren-gold/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
           <div className="col-span-1 md:col-span-1">
-            <span className="font-sans text-3xl font-light tracking-tight text-ren-ink mb-6 block">rén</span>
-            <p className="text-ren-ink/60 text-sm leading-relaxed mb-6">
+            <span className="font-serif text-4xl font-light tracking-tight text-ren-ink mb-8 block">rén</span>
+            <p className="text-ren-ink/40 text-sm leading-relaxed mb-8 font-light">
               Empowering women to prioritize their wellness through convenient, high-quality herbal solutions.
             </p>
-            <div className="flex space-x-4">
-              {/* Social placeholders */}
-              <div className="w-8 h-8 rounded-full border border-ren-pink-rose/20 flex items-center justify-center text-ren-pink-rose hover:bg-ren-pink-rose hover:text-white transition-all cursor-pointer">
-                <Heart size={14} />
+            <div className="flex space-x-6">
+              <div className="w-10 h-10 rounded-full border border-ren-gold/20 flex items-center justify-center text-ren-gold hover:bg-ren-gold hover:text-white transition-all cursor-pointer">
+                <Heart size={16} />
               </div>
-              <div className="w-8 h-8 rounded-full border border-ren-pink-rose/20 flex items-center justify-center text-ren-pink-rose hover:bg-ren-pink-rose hover:text-white transition-all cursor-pointer">
-                <Leaf size={14} />
+              <div className="w-10 h-10 rounded-full border border-ren-gold/20 flex items-center justify-center text-ren-gold hover:bg-ren-gold hover:text-white transition-all cursor-pointer">
+                <Leaf size={16} />
               </div>
             </div>
           </div>
           
           <div>
-            <h5 className="font-bold uppercase tracking-widest text-xs mb-6">Shop</h5>
-            <ul className="space-y-4 text-sm text-ren-ink/60">
-              <li><a href="#" className="hover:text-ren-pink-muted transition-colors">Confinement Packages</a></li>
-              <li><a href="#" className="hover:text-ren-pink-muted transition-colors">Herbal Tea Series</a></li>
-              <li><a href="#" className="hover:text-ren-pink-muted transition-colors">Gift Sets</a></li>
-              <li><a href="#" className="hover:text-ren-pink-muted transition-colors">New Arrivals</a></li>
+            <h5 className="font-bold uppercase tracking-[0.3em] text-[10px] mb-8 text-ren-ink">Shop</h5>
+            <ul className="space-y-5 text-sm text-ren-ink/50 font-light">
+              <li><a href="#" className="hover:text-ren-gold transition-colors">Confinement Packages</a></li>
+              <li><a href="#" className="hover:text-ren-gold transition-colors">Herbal Tea Series</a></li>
+              <li><a href="#" className="hover:text-ren-gold transition-colors">Gift Sets</a></li>
+              <li><a href="#" className="hover:text-ren-gold transition-colors">New Arrivals</a></li>
             </ul>
           </div>
 
           <div>
-            <h5 className="font-bold uppercase tracking-widest text-xs mb-6">Support</h5>
-            <ul className="space-y-4 text-sm text-ren-ink/60">
-              <li><a href="#" className="hover:text-ren-pink-muted transition-colors">Shipping Info</a></li>
-              <li><a href="#" className="hover:text-ren-pink-muted transition-colors">Returns & Exchanges</a></li>
-              <li><a href="#" className="hover:text-ren-pink-muted transition-colors">FAQ</a></li>
-              <li><a href="#" className="hover:text-ren-pink-muted transition-colors">Contact Us</a></li>
+            <h5 className="font-bold uppercase tracking-[0.3em] text-[10px] mb-8 text-ren-ink">Support</h5>
+            <ul className="space-y-5 text-sm text-ren-ink/50 font-light">
+              <li><a href="#" className="hover:text-ren-gold transition-colors">Shipping Info</a></li>
+              <li><a href="#" className="hover:text-ren-gold transition-colors">Returns & Exchanges</a></li>
+              <li><a href="#" className="hover:text-ren-gold transition-colors">FAQ</a></li>
+              <li><a href="#" className="hover:text-ren-gold transition-colors">Contact Us</a></li>
             </ul>
           </div>
 
           <div>
-            <h5 className="font-bold uppercase tracking-widest text-xs mb-6">Newsletter</h5>
-            <p className="text-sm text-ren-ink/60 mb-6">Join our community for wellness tips and exclusive offers.</p>
-            <div className="flex">
+            <h5 className="font-bold uppercase tracking-[0.3em] text-[10px] mb-8 text-ren-ink">Newsletter</h5>
+            <p className="text-sm text-ren-ink/40 mb-8 font-light leading-relaxed">Join our community for wellness tips and exclusive offers.</p>
+            <div className="flex border-b border-ren-gold/20 pb-2">
               <input 
                 type="email" 
                 placeholder="Email address" 
-                className="bg-ren-cream border-none rounded-l-full px-4 py-2 text-sm w-full focus:ring-1 focus:ring-ren-pink-rose outline-none"
+                className="bg-transparent border-none px-0 py-2 text-sm w-full outline-none font-light"
               />
-              <button className="bg-ren-pink-rose text-white px-6 py-2 rounded-r-full text-sm font-medium">Join</button>
+              <button className="text-ren-ink text-[10px] font-bold uppercase tracking-widest hover:text-ren-gold transition-colors">Join</button>
             </div>
           </div>
         </div>
         
-        <div className="pt-8 border-t border-ren-pink-rose/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[10px] uppercase tracking-widest text-ren-ink/40">
+        <div className="pt-12 border-t border-ren-gold/5 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-[9px] uppercase tracking-[0.4em] text-ren-ink/30 font-bold">
             © 2024 REN HEALTH. ALL RIGHTS RESERVED.
           </p>
-          <div className="flex space-x-6 text-[10px] uppercase tracking-widest text-ren-ink/40">
-            <a href="#" className="hover:text-ren-pink-rose transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-ren-pink-rose transition-colors">Terms of Service</a>
+          <div className="flex space-x-8 text-[9px] uppercase tracking-[0.4em] text-ren-ink/30 font-bold">
+            <a href="#" className="hover:text-ren-gold transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-ren-gold transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>
@@ -743,19 +774,19 @@ const PartnersSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-ren-cream/50 border-y border-ren-pink-rose/5">
+    <section className="py-24 bg-ren-sand/50 border-y border-ren-gold/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-ren-pink-rose font-bold mb-4 block">Trusted Ecosystem</span>
-          <h2 className="text-3xl font-serif">Our Partners & Credentials</h2>
+        <div className="text-center mb-16">
+          <span className="text-[10px] uppercase tracking-[0.4em] text-ren-gold font-bold mb-4 block">Trusted Ecosystem</span>
+          <h2 className="text-4xl font-serif text-ren-ink">Our Partners & Credentials</h2>
         </div>
         
-        <div className="mb-16">
-          <p className="text-center text-xs uppercase tracking-widest text-ren-ink/40 mb-10">Supporting Premier Confinement Centres</p>
-          <div className="flex flex-wrap justify-center gap-12 md:gap-20 items-center opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+        <div className="mb-24">
+          <p className="text-center text-[10px] uppercase tracking-[0.3em] text-ren-ink/30 mb-12 font-bold">Supporting Premier Confinement Centres</p>
+          <div className="flex flex-wrap justify-center gap-16 md:gap-24 items-center opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
             {centres.map((centre, i) => (
-              <div key={i} className="flex flex-col items-center gap-3 group">
-                <div className="w-16 h-16 rounded-full overflow-hidden border border-ren-pink-rose/10 bg-white p-2 group-hover:border-ren-pink-muted/30 transition-colors">
+              <div key={i} className="flex flex-col items-center gap-4 group">
+                <div className="w-20 h-20 rounded-full overflow-hidden border border-ren-gold/10 bg-white p-3 group-hover:border-ren-gold/30 transition-all duration-500">
                   <img 
                     src={centre.image} 
                     className="w-full h-full object-contain" 
@@ -763,62 +794,62 @@ const PartnersSection = () => {
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-ren-pink-rose text-center max-w-[100px] leading-tight">{centre.name}</span>
+                <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-ren-ink text-center max-w-[120px] leading-tight group-hover:text-ren-gold transition-colors">{centre.name}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="bg-white p-10 rounded-[40px] shadow-sm border border-ren-pink-rose/5 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-ren-pink-muted/5 rounded-bl-full -mr-16 -mt-16 group-hover:bg-ren-pink-muted/10 transition-colors" />
-            <div className="flex items-center gap-6 mb-8">
-              <div className="w-20 h-20 bg-ren-pink-muted/10 p-2 rounded-2xl flex-shrink-0 bg-white">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="bg-white p-12 rounded-[60px] shadow-sm border border-ren-gold/5 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-40 h-40 bg-ren-gold/5 rounded-bl-full -mr-20 -mt-20 group-hover:bg-ren-gold/10 transition-all duration-700" />
+            <div className="flex items-center gap-8 mb-10">
+              <div className="w-24 h-24 bg-ren-sand p-4 rounded-3xl flex-shrink-0">
                 <img 
                   src={LOGOS.motherhoodChoice} 
-                  className="w-full h-full object-contain" 
+                  className="w-full h-full object-contain grayscale opacity-80" 
                   alt="Motherhood Choice Award"
                   referrerPolicy="no-referrer"
                 />
               </div>
               <div>
-                <h3 className="text-2xl font-serif">Motherhood Choice Award</h3>
-                <div className="flex items-center gap-1 text-ren-pink-muted mt-1">
-                  <Star size={12} fill="currentColor" />
-                  <Star size={12} fill="currentColor" />
-                  <Star size={12} fill="currentColor" />
-                  <Star size={12} fill="currentColor" />
-                  <Star size={12} fill="currentColor" />
+                <h3 className="text-3xl font-serif text-ren-ink">Motherhood Choice Award</h3>
+                <div className="flex items-center gap-1 text-ren-gold mt-2">
+                  <Star size={14} fill="currentColor" />
+                  <Star size={14} fill="currentColor" />
+                  <Star size={14} fill="currentColor" />
+                  <Star size={14} fill="currentColor" />
+                  <Star size={14} fill="currentColor" />
                 </div>
               </div>
             </div>
-            <p className="text-ren-ink/60 text-sm leading-relaxed mb-6">
-              Proudly recognized as the <span className="font-bold text-ren-ink">Best Postnatal Recovery Essential</span>. This award reflects our commitment to quality and the trust thousands of mothers place in REN Health.
+            <p className="text-ren-ink/50 text-sm leading-relaxed mb-8 font-light">
+              Proudly recognized as the <span className="font-medium text-ren-ink">Best Postnatal Recovery Essential</span>. This award reflects our commitment to quality and the trust thousands of mothers place in REN Health.
             </p>
-            <div className="flex items-center gap-2 text-ren-pink-muted font-bold text-[10px] uppercase tracking-widest">
+            <div className="flex items-center gap-3 text-ren-gold font-bold text-[10px] uppercase tracking-[0.3em]">
               <span>Verified Excellence</span>
-              <div className="h-[1px] w-12 bg-ren-pink-muted/30" />
+              <div className="h-[1px] w-16 bg-ren-gold/20" />
             </div>
           </div>
 
-          <div className="space-y-10">
-            <p className="text-xs uppercase tracking-widest text-ren-ink/40">Strategic Partners</p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+          <div className="space-y-12">
+            <p className="text-[10px] uppercase tracking-[0.4em] text-ren-ink/30 font-bold">Strategic Partners</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
               {partners.map((partner, i) => (
-                <div key={i} className="flex flex-col items-center gap-4 group cursor-pointer">
-                  <div className="w-full aspect-video bg-white rounded-2xl border border-ren-pink-rose/10 flex items-center justify-center p-4 group-hover:border-ren-pink-muted/30 transition-all group-hover:shadow-lg group-hover:shadow-ren-pink-rose/5">
+                <div key={i} className="flex flex-col items-center gap-5 group cursor-pointer">
+                  <div className="w-full aspect-video bg-white rounded-3xl border border-ren-gold/10 flex items-center justify-center p-6 group-hover:border-ren-gold/30 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-ren-gold/5">
                     <img 
                       src={partner.image} 
-                      className="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-opacity" 
+                      className="w-full h-full object-contain opacity-40 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all duration-500" 
                       alt={partner.name}
                       referrerPolicy="no-referrer"
                     />
                   </div>
-                  <span className="text-[10px] font-bold text-ren-pink-rose uppercase tracking-widest group-hover:text-ren-pink-muted transition-colors">{partner.name}</span>
+                  <span className="text-[9px] font-bold text-ren-ink/40 uppercase tracking-[0.2em] group-hover:text-ren-gold transition-colors">{partner.name}</span>
                 </div>
               ))}
             </div>
-            <p className="text-sm text-ren-ink/50 italic leading-relaxed">
+            <p className="text-sm text-ren-ink/40 italic leading-relaxed font-light">
               Collaborating with industry leaders to bring the best wellness resources to every woman.
             </p>
           </div>
@@ -860,7 +891,7 @@ const ContactSection = () => {
       return;
     }
 
-    const whatsappNumber = "60124238768"; // Updated WhatsApp number
+    const whatsappNumber = "60124238768"; 
     const servicesText = formData.services.length > 0 ? formData.services.join(", ") : "None selected";
     
     const text = `NEW INQUIRY
@@ -874,67 +905,69 @@ Message: ${formData.message}`;
   };
 
   return (
-    <section id="contact" className="py-24 bg-ren-cream/30">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <span className="text-ren-pink-muted font-bold uppercase tracking-[0.2em] text-[10px] mb-4 block">Get In Touch</span>
-          <h2 className="text-5xl font-serif mb-6">Contact Us</h2>
-          <p className="text-ren-ink/60">Have questions about our packages or need a personalized recommendation? We're here to help.</p>
+    <section id="contact" className="py-32 bg-ren-sand/30">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-20">
+          <span className="text-ren-gold font-bold uppercase tracking-[0.4em] text-[10px] mb-4 block">Get In Touch</span>
+          <h2 className="text-6xl font-serif mb-6 text-ren-ink">Contact Us</h2>
+          <p className="text-ren-ink/50 font-light">Have questions about our packages or need a personalized recommendation? We're here to help.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white p-8 md:p-12 rounded-[40px] shadow-sm border border-ren-pink-rose/5">
-          <div className="space-y-6">
-            <div>
-              <label className="block text-[10px] uppercase tracking-widest font-bold text-ren-pink-rose mb-2">Name *</label>
-              <input 
-                type="text" 
-                required
-                className="w-full bg-ren-cream/50 border-none rounded-2xl px-6 py-4 outline-none focus:ring-1 focus:ring-ren-pink-rose transition-all"
-                placeholder="Your full name"
-                value={formData.name}
-                onChange={e => setFormData({...formData, name: e.target.value})}
-              />
+        <form onSubmit={handleSubmit} className="bg-white p-10 md:p-16 rounded-[60px] shadow-sm border border-ren-gold/5">
+          <div className="space-y-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <div>
+                <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-ren-ink/40 mb-4">Name *</label>
+                <input 
+                  type="text" 
+                  required
+                  className="w-full bg-ren-sand/50 border-b border-ren-gold/10 px-0 py-4 outline-none focus:border-ren-gold transition-all font-light"
+                  placeholder="Your full name"
+                  value={formData.name}
+                  onChange={e => setFormData({...formData, name: e.target.value})}
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-ren-ink/40 mb-4">Email *</label>
+                <input 
+                  type="email" 
+                  required
+                  className="w-full bg-ren-sand/50 border-b border-ren-gold/10 px-0 py-4 outline-none focus:border-ren-gold transition-all font-light"
+                  placeholder="Your email address"
+                  value={formData.email}
+                  onChange={e => setFormData({...formData, email: e.target.value})}
+                />
+              </div>
             </div>
 
             <div>
-              <label className="block text-[10px] uppercase tracking-widest font-bold text-ren-pink-rose mb-2">Email *</label>
-              <input 
-                type="email" 
-                required
-                className="w-full bg-ren-cream/50 border-none rounded-2xl px-6 py-4 outline-none focus:ring-1 focus:ring-ren-pink-rose transition-all"
-                placeholder="Your email address"
-                value={formData.email}
-                onChange={e => setFormData({...formData, email: e.target.value})}
-              />
-            </div>
-
-            <div>
-              <label className="block text-[10px] uppercase tracking-widest font-bold text-ren-pink-rose mb-4">Help Needed</label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-ren-ink/40 mb-6">Help Needed</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {servicesOptions.map(service => (
-                  <label key={service} className="flex items-center gap-3 cursor-pointer group">
+                  <label key={service} className="flex items-center gap-4 cursor-pointer group">
                     <div 
                       onClick={() => handleServiceChange(service)}
-                      className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${
+                      className={`w-5 h-5 rounded-full border flex items-center justify-center transition-all duration-500 ${
                         formData.services.includes(service) 
-                          ? 'bg-ren-pink-rose border-ren-pink-rose text-white' 
-                          : 'border-ren-pink-rose/20 group-hover:border-ren-pink-rose/40'
+                          ? 'bg-ren-gold border-ren-gold text-white' 
+                          : 'border-ren-gold/20 group-hover:border-ren-gold/40'
                       }`}
                     >
-                      {formData.services.includes(service) && <Leaf size={14} />}
+                      {formData.services.includes(service) && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                     </div>
-                    <span className="text-sm text-ren-ink/70">{service}</span>
+                    <span className={`text-sm transition-colors duration-500 ${formData.services.includes(service) ? 'text-ren-ink' : 'text-ren-ink/50'}`}>{service}</span>
                   </label>
                 ))}
               </div>
             </div>
 
             <div>
-              <label className="block text-[10px] uppercase tracking-widest font-bold text-ren-pink-rose mb-2">Message *</label>
+              <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-ren-ink/40 mb-4">Message *</label>
               <textarea 
                 required
                 rows={4}
-                className="w-full bg-ren-cream/50 border-none rounded-2xl px-6 py-4 outline-none focus:ring-1 focus:ring-ren-pink-rose transition-all resize-none"
+                className="w-full bg-ren-sand/50 border-b border-ren-gold/10 px-0 py-4 outline-none focus:border-ren-gold transition-all resize-none font-light"
                 placeholder="How can we support you today?"
                 value={formData.message}
                 onChange={e => setFormData({...formData, message: e.target.value})}
@@ -943,9 +976,9 @@ Message: ${formData.message}`;
 
             <button 
               type="submit"
-              className="w-full bg-ren-pink-rose text-white py-5 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-opacity-90 transition-all shadow-lg shadow-ren-pink-rose/20 flex items-center justify-center gap-3"
+              className="w-full bg-ren-ink text-white py-6 rounded-full font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-ren-gold transition-all shadow-2xl shadow-ren-ink/20 flex items-center justify-center gap-4"
             >
-              Submit to WhatsApp <Heart size={18} />
+              Submit Inquiry <ChevronRight size={16} />
             </button>
           </div>
         </form>
@@ -956,7 +989,7 @@ Message: ${formData.message}`;
 
 export default function App() {
   return (
-    <div className="min-h-screen selection:bg-ren-pink-rose/20">
+    <div className="min-h-screen selection:bg-ren-gold/20">
       <Navbar />
       <main>
         <Hero />
