@@ -1,14 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Cormorant Garamond", serif;
-  --font-sans: "Inter", sans-serif;
+  --font-serif: "zihunchuangzhonghei", "Outfit", sans-serif;
+  --font-sans: "zihunchuangzhonghei", "Outfit", sans-serif;
   
-  --color-ren-cream: #fdfcf8;
-  --color-ren-sage: #5a5a40;
-  --color-ren-clay: #b87352;
-  --color-ren-ink: #1a1a1a;
+  --color-ren-cream: #F4EADC;
+  --color-ren-pink-soft: #F3C6C3;
+  --color-ren-pink-rose: #F3A2A4;
+  --color-ren-pink-muted: #F2B7B6;
+  --color-ren-ink: #0F0F0F;
 }
 
 body {
