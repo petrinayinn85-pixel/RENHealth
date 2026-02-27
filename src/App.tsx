@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { translations, Language } from './translations';
 import { 
   Leaf, 
   Clock, 
@@ -17,6 +16,7 @@ import {
   Droplets,
   Globe
 } from 'lucide-react';
+import { translations, Language } from './translations';
 
 // --- Types ---
 
@@ -33,14 +33,14 @@ interface Product {
 // --- Constants ---
 
 const LOGOS = {
-  motherhoodChoice: "https://picsum.photos/seed/award/200/200",
-  lyc: "https://picsum.photos/seed/lyc/200/200",
-  cozzi: "https://picsum.photos/seed/cozzi/200/200",
-  itsHerbs: "https://picsum.photos/seed/herbs/200/200",
-  motherhood: "https://picsum.photos/seed/mom/200/200",
-  kelabmama: "https://picsum.photos/seed/mama/200/200",
-  gracie: "https://picsum.photos/seed/gracie/200/200",
-  byond: "https://picsum.photos/seed/byond/200/200",
+  motherhoodChoice: "/Motherh Choice.jpg",
+  lyc: "/LYC Confinement.png",
+  cozzi: "/Cozzi Confinement.png",
+  itsHerbs: "/itsHerbs.png",
+  motherhood: "/Motherhood.com.my.png",
+  kelabmama: "/Kelabmama.com.png",
+  gracie: "/Gracie Confinement.png",
+  byond: "/Byond28 Confinement.png",
 };
 
 const CONFINEMENT_PACKAGES: Product[] = [
@@ -49,7 +49,7 @@ const CONFINEMENT_PACKAGES: Product[] = [
     name: '14-Day Essentials',
     description: 'A focused recovery package for the initial healing phase.',
     price: 'RM 888',
-    image: 'https://picsum.photos/seed/herb14/800/1000',
+    image: '/14-Day Essentials.jpg',
     category: 'confinement',
     features: ['Uterus Recovery', 'Blood Replenishment', 'Basic Vitality Boost']
   },
@@ -58,7 +58,7 @@ const CONFINEMENT_PACKAGES: Product[] = [
     name: '28-Day Signature',
     description: 'Our most popular choice for comprehensive postpartum restoration.',
     price: 'RM 1,688',
-    image: 'https://picsum.photos/seed/herb28/800/1000',
+    image: '/28-Day Signature.jpg',
     category: 'confinement',
     features: ['Full Body Restoration', 'Lactation Support', 'Hormonal Balance', 'Immunity Strengthening']
   },
@@ -67,7 +67,7 @@ const CONFINEMENT_PACKAGES: Product[] = [
     name: '56-Day Premium',
     description: 'The ultimate care package for long-term health and deep rejuvenation.',
     price: 'RM 2,488',
-    image: 'https://picsum.photos/seed/herb56/800/1000',
+    image: '/56-Day Premium.jpg',
     category: 'confinement',
     features: ['Deep Tissue Repair', 'Bone & Joint Health', 'Premium Herbal Grade', 'Extended Wellness Support']
   }
@@ -78,34 +78,18 @@ const MISCARRIAGE_PACKAGE: Product = {
   name: '7-Day Recovery',
   description: 'Specialized care for miscarriage recovery and gentle body restoration.',
   price: 'RM 488',
-  image: '/miscarriage.jpg',
+  image: '/Miscarriage Recovery Care.jpg',
   category: 'confinement',
   features: ['Gentle Uterus Care', 'Emotional Balance Support', 'Basic Vitality Replenishment']
 };
 
 const TEA_SERIES: Product[] = [
   {
-    id: 'tea-liver',
-    name: 'Liver Detox Flower Tea',
-    description: 'Refresh and cleanse your system from daily stressors.',
-    price: 'RM 45',
-    image: 'https://picsum.photos/seed/tea-liver/800/800',
-    category: 'tea'
-  },
-  {
-    id: 'tea-sleep',
-    name: 'Sleep & Relax Flower Tea',
-    description: 'Unwind with calming botanicals for a restful night.',
-    price: 'RM 45',
-    image: 'https://picsum.photos/seed/tea-sleep/800/800',
-    category: 'tea'
-  },
-  {
     id: 'tea-damp',
     name: 'Dampness Removing Tea',
     description: 'Balance your body and reduce bloating naturally.',
     price: 'RM 48',
-    image: 'https://picsum.photos/seed/tea-damp/800/800',
+    image: '/Dampness Removing Tea.jpg',
     category: 'tea'
   },
   {
@@ -113,7 +97,7 @@ const TEA_SERIES: Product[] = [
     name: 'Red Date Longan Tea',
     description: 'Classic nourishment for blood health and vitality.',
     price: 'RM 42',
-    image: 'https://picsum.photos/seed/tea-date/800/800',
+    image: '/Red Date Longan Tea.jpg',
     category: 'tea'
   }
 ];
@@ -124,21 +108,21 @@ const TESTIMONIALS = [
     name: "Sarah Lim",
     role: "Mother of two",
     content: "The 28-day confinement package was a lifesaver. The herbs were so easy to prepare, and I felt my energy returning much faster than my first pregnancy.",
-    image: "https://picsum.photos/seed/sarah/100/100"
+    image: ""
   },
   {
     id: 2,
     name: "Aishah Rahman",
     role: "New Mother",
     content: "I love the Herbal Tea series! It's my daily ritual now. The Red Date Longan tea is so soothing and tastes amazing. Highly recommend to all busy moms.",
-    image: "https://picsum.photos/seed/aishah/100/100"
+    image: ""
   },
   {
     id: 3,
     name: "Jessica Wong",
     role: "Professional",
     content: "Convenience without compromising quality. REN Health truly understands the needs of modern women. The packaging is beautiful and the instructions are clear.",
-    image: "https://picsum.photos/seed/jessica/100/100"
+    image: ""
   }
 ];
 
@@ -162,14 +146,13 @@ const Navbar = ({ language, setLanguage }: { language: Language, setLanguage: (l
             <a href="#about" className="text-[10px] font-bold hover:text-ren-gold transition-colors uppercase tracking-[0.2em]">{t.story}</a>
             <a href="#contact" className="text-[10px] font-bold hover:text-ren-gold transition-colors uppercase tracking-[0.2em]">{t.contact}</a>
             
-            <div className="flex items-center gap-2 border-l border-ren-gold/20 pl-8 ml-4">
+            <div className="flex items-center gap-4 ml-4 pl-4 border-l border-ren-gold/20">
               <button 
                 onClick={() => setLanguage('en')}
                 className={`text-[10px] font-bold transition-colors ${language === 'en' ? 'text-ren-gold' : 'text-ren-ink/40 hover:text-ren-gold'}`}
               >
                 EN
               </button>
-              <span className="text-[10px] text-ren-gold/20">|</span>
               <button 
                 onClick={() => setLanguage('zh')}
                 className={`text-[10px] font-bold transition-colors ${language === 'zh' ? 'text-ren-gold' : 'text-ren-ink/40 hover:text-ren-gold'}`}
@@ -186,7 +169,7 @@ const Navbar = ({ language, setLanguage }: { language: Language, setLanguage: (l
           <div className="md:hidden flex items-center gap-4">
             <button 
               onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}
-              className="p-2 text-ren-gold"
+              className="p-2 text-ren-ink/60"
             >
               <Globe size={20} />
             </button>
@@ -211,6 +194,20 @@ const Navbar = ({ language, setLanguage }: { language: Language, setLanguage: (l
               <a href="#teas" onClick={() => setIsOpen(false)} className="block text-lg font-serif">{t.teas}</a>
               <a href="#about" onClick={() => setIsOpen(false)} className="block text-lg font-serif">{t.story}</a>
               <a href="#contact" onClick={() => setIsOpen(false)} className="block text-lg font-serif">{t.contact}</a>
+              <div className="flex gap-4 pt-4 border-t border-ren-gold/10">
+                <button 
+                  onClick={() => { setLanguage('en'); setIsOpen(false); }}
+                  className={`text-sm font-bold ${language === 'en' ? 'text-ren-gold' : 'text-ren-ink/40'}`}
+                >
+                  English
+                </button>
+                <button 
+                  onClick={() => { setLanguage('zh'); setIsOpen(false); }}
+                  className={`text-sm font-bold ${language === 'zh' ? 'text-ren-gold' : 'text-ren-ink/40'}`}
+                >
+                  简体中文
+                </button>
+              </div>
               <button className="w-full bg-ren-ink text-white py-3 rounded-full font-bold uppercase tracking-widest text-xs">{t.shop}</button>
             </div>
           </motion.div>
@@ -227,8 +224,8 @@ const Hero = ({ language }: { language: Language }) => {
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://picsum.photos/seed/wellness/1920/1080?blur=2" 
-          className="w-full h-full object-cover opacity-20"
+          src="/OurStory.jpg" 
+          className="w-full h-full object-cover opacity-20 blur-sm"
           alt="Wellness Background"
           referrerPolicy="no-referrer"
         />
@@ -356,7 +353,7 @@ const ConfinementSection = ({ language }: { language: Language }) => {
               className="bg-white rounded-[40px] overflow-hidden shadow-sm hover:shadow-2xl transition-all border border-ren-gold/5 group"
             >
               <div className="aspect-[4/5] overflow-hidden relative">
-                <img src={pkg.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" alt={t.packages[idx].name} referrerPolicy="no-referrer" />
+                <img src={pkg.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" alt={pkg.name} referrerPolicy="no-referrer" />
                 <div className="absolute inset-0 bg-ren-ink/5 group-hover:bg-transparent transition-colors" />
               </div>
               <div className="p-10">
@@ -416,13 +413,17 @@ const TestimonialsSection = ({ language }: { language: Language }) => {
                 className="absolute w-full text-center px-8 md:px-24"
               >
                 <div className="mb-10 flex justify-center">
-                  <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-2xl">
-                    <img 
-                      src={TESTIMONIALS[currentIndex].image} 
-                      alt={t.items[currentIndex].name}
-                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
-                      referrerPolicy="no-referrer"
-                    />
+                  <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-2xl bg-ren-sand flex items-center justify-center">
+                    {TESTIMONIALS[currentIndex].image ? (
+                      <img 
+                        src={TESTIMONIALS[currentIndex].image} 
+                        alt={t.items[currentIndex].name}
+                        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <Heart className="text-ren-gold w-10 h-10 opacity-40" />
+                    )}
                   </div>
                 </div>
                 <p className="text-2xl md:text-3xl font-serif italic text-ren-ink/80 mb-10 leading-relaxed font-light">
@@ -468,7 +469,9 @@ const TestimonialsSection = ({ language }: { language: Language }) => {
   );
 };
 
-const MiscarriageSection = () => {
+const MiscarriageSection = ({ language }: { language: Language }) => {
+  const t = translations[language].miscarriage;
+
   return (
     <section id="miscarriage" className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -479,15 +482,15 @@ const MiscarriageSection = () => {
             viewport={{ once: true }}
             className="order-2 lg:order-1"
           >
-            <span className="text-ren-gold font-bold uppercase tracking-[0.3em] text-[10px] mb-6 block">Specialized Care</span>
-            <h2 className="text-6xl font-serif mb-8 text-ren-ink">Miscarriage Recovery</h2>
+            <span className="text-ren-gold font-bold uppercase tracking-[0.3em] text-[10px] mb-6 block">{t.label}</span>
+            <h2 className="text-6xl font-serif mb-8 text-ren-ink">{t.title}</h2>
             <p className="text-ren-ink/50 mb-12 leading-relaxed font-light text-lg">
-              We understand that recovery is both physical and emotional. Our 7-day specialized package provides gentle, nourishing support to help your body heal and restore its natural balance during this sensitive time.
+              {t.desc}
             </p>
             <div className="bg-ren-sand p-12 rounded-[60px] border border-ren-gold/5 shadow-sm">
-              <h3 className="text-3xl font-serif mb-6 text-ren-ink">{MISCARRIAGE_PACKAGE.name}</h3>
+              <h3 className="text-3xl font-serif mb-6 text-ren-ink">{t.pkgName}</h3>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
-                {MISCARRIAGE_PACKAGE.features?.map((f, i) => (
+                {t.features?.map((f, i) => (
                   <li key={i} className="flex items-center gap-3 text-xs text-ren-ink/70 font-medium uppercase tracking-widest">
                     <div className="w-1.5 h-1.5 rounded-full bg-ren-gold/40" /> {f}
                   </li>
@@ -496,7 +499,7 @@ const MiscarriageSection = () => {
               <div className="flex items-center justify-between pt-10 border-t border-ren-gold/10">
                 <span className="text-3xl font-serif text-ren-gold">{MISCARRIAGE_PACKAGE.price}</span>
                 <button className="bg-ren-ink text-white px-10 py-4 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-ren-gold transition-all shadow-xl shadow-ren-ink/10">
-                  Add to Cart
+                  {t.addToCart}
                 </button>
               </div>
             </div>
@@ -524,18 +527,20 @@ const MiscarriageSection = () => {
   );
 };
 
-const TeaSection = () => {
+const TeaSection = ({ language }: { language: Language }) => {
+  const t = translations[language].teas;
+
   return (
     <section id="teas" className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
           <div>
-            <span className="text-ren-gold font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">Daily Rituals</span>
-            <h2 className="text-6xl font-serif mb-6 text-ren-ink">Herbal Tea Series</h2>
-            <p className="text-ren-ink/50 max-w-md font-light">Daily wellness in every sip. Functional blends for the modern lifestyle.</p>
+            <span className="text-ren-gold font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">{t.label}</span>
+            <h2 className="text-6xl font-serif mb-6 text-ren-ink">{t.title}</h2>
+            <p className="text-ren-ink/50 max-w-md font-light">{t.desc}</p>
           </div>
           <button className="text-ren-ink font-bold uppercase tracking-[0.2em] text-[10px] border-b border-ren-gold/30 pb-2 hover:text-ren-gold hover:border-ren-gold transition-all">
-            View Full Collection
+            {t.viewFull}
           </button>
         </div>
 
@@ -553,13 +558,13 @@ const TeaSection = () => {
                 <img 
                   src={tea.image} 
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" 
-                  alt={tea.name} 
+                  alt={t.items[idx].name} 
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-ren-ink/5 group-hover:bg-transparent transition-colors" />
               </div>
-              <h4 className="text-xl font-serif mb-2 text-ren-ink group-hover:text-ren-gold transition-colors">{tea.name}</h4>
-              <p className="text-ren-ink/40 text-xs mb-4 line-clamp-1 font-light tracking-wide">{tea.description}</p>
+              <h4 className="text-xl font-serif mb-2 text-ren-ink group-hover:text-ren-gold transition-colors">{t.items[idx].name}</h4>
+              <p className="text-ren-ink/40 text-xs mb-4 line-clamp-1 font-light tracking-wide">{t.items[idx].desc}</p>
               <span className="text-sm font-medium text-ren-gold tracking-widest">{tea.price}</span>
             </motion.div>
           ))}
@@ -569,7 +574,9 @@ const TeaSection = () => {
   );
 };
 
-const AboutSection = () => {
+const AboutSection = ({ language }: { language: Language }) => {
+  const t = translations[language].about;
+
   return (
     <section id="about" className="py-32 bg-white overflow-hidden relative">
       {/* Decorative Background Elements */}
@@ -587,7 +594,7 @@ const AboutSection = () => {
               {/* Vertical Rail Text */}
               <div className="hidden sm:block pt-12">
                 <span className="rail-text text-[10px] font-bold uppercase tracking-[0.4em] text-ren-gold/40 whitespace-nowrap" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
-                  ESTABLISHED 2024 • HERITAGE & HEART
+                  {language === 'en' ? 'ESTABLISHED 2024 • HERITAGE & HEART' : '始于 2024 • 传承与初心'}
                 </span>
               </div>
               
@@ -615,8 +622,8 @@ const AboutSection = () => {
                   transition={{ delay: 0.5 }}
                   className="absolute -bottom-8 -right-8 bg-ren-gold text-white p-8 rounded-full w-32 h-32 flex flex-col items-center justify-center text-center shadow-xl z-20 border-4 border-white"
                 >
-                  <span className="text-2xl font-serif leading-none">5k+</span>
-                  <span className="text-[8px] uppercase tracking-widest font-bold mt-1">Mothers Helped</span>
+                  <span className="text-2xl font-serif leading-none">{t.statValue}</span>
+                  <span className="text-[8px] uppercase tracking-widest font-bold mt-1">{t.statLabel}</span>
                 </motion.div>
               </div>
             </div>
@@ -632,20 +639,20 @@ const AboutSection = () => {
             >
               <div className="flex items-center gap-4 mb-8">
                 <div className="h-[1px] w-12 bg-ren-gold/30" />
-                <span className="text-ren-gold font-bold uppercase tracking-[0.2em] text-[10px]">Our Heart & Heritage</span>
+                <span className="text-ren-gold font-bold uppercase tracking-[0.2em] text-[10px]">{t.label}</span>
               </div>
               
               <h2 className="text-6xl md:text-7xl font-serif mb-10 leading-[0.9] text-ren-ink">
-                A Love Letter to <br />
-                <span className="italic text-ren-rose font-light">Every Woman</span>
+                {t.title1} <br />
+                <span className="italic text-ren-rose font-light">{t.title2}</span>
               </h2>
               
               <div className="space-y-8 text-lg text-ren-ink/70 leading-relaxed max-w-2xl">
                 <p>
-                  We believe that when a woman is well, her whole world thrives. But we also know the quiet weight you carry—the busy mornings, the sleepless nights, and the countless ways you put others first.
+                  {t.p1}
                 </p>
                 <p>
-                  REN Health was born from a simple, heartfelt wish: to make it easier for you to care for yourself. We've bridged the gap between ancient healing and your modern life.
+                  {t.p2}
                 </p>
                 
                 <div className="relative py-10 my-12">
@@ -653,13 +660,13 @@ const AboutSection = () => {
                   <div className="relative px-10">
                     <Star className="text-ren-gold mb-6" size={24} fill="currentColor" />
                     <p className="text-xl font-serif italic text-ren-ink leading-relaxed">
-                      "Every one of our formulas is thoughtfully crafted in collaboration with the expert <span className="text-ren-gold font-bold not-italic">TCM specialists from itsHerbs.com</span>, ensuring that you receive the purest, most effective support for your unique journey."
+                      "{t.quote.split(t.expert)[0]}<span className="text-ren-gold font-bold not-italic">{t.expert}</span>{t.quote.split(t.expert)[1]}"
                     </p>
                   </div>
                 </div>
 
                 <p className="font-serif italic text-2xl text-ren-ink/90">
-                  Because prioritizing your health isn't a luxury—it's an act of love for yourself and everyone who depends on you.
+                  {t.footer}
                 </p>
               </div>
 
@@ -669,8 +676,8 @@ const AboutSection = () => {
                     <Leaf className="text-ren-gold" size={20} />
                   </div>
                   <div>
-                    <span className="block text-xl font-serif text-ren-ink">100% Natural</span>
-                    <span className="text-[10px] uppercase tracking-widest text-ren-ink/40 font-bold">Pure Ingredients</span>
+                    <span className="block text-xl font-serif text-ren-ink">{t.feature1Title}</span>
+                    <span className="text-[10px] uppercase tracking-widest text-ren-ink/40 font-bold">{t.feature1Desc}</span>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -678,8 +685,8 @@ const AboutSection = () => {
                     <Heart className="text-ren-gold" size={20} />
                   </div>
                   <div>
-                    <span className="block text-xl font-serif text-ren-ink">Expert Formulated</span>
-                    <span className="text-[10px] uppercase tracking-widest text-ren-ink/40 font-bold">TCM Specialists</span>
+                    <span className="block text-xl font-serif text-ren-ink">{t.feature2Title}</span>
+                    <span className="text-[10px] uppercase tracking-widest text-ren-ink/40 font-bold">{t.feature2Desc}</span>
                   </div>
                 </div>
               </div>
@@ -692,7 +699,9 @@ const AboutSection = () => {
   );
 };
 
-const Footer = () => {
+const Footer = ({ language }: { language: Language }) => {
+  const t = translations[language].footer;
+
   return (
     <footer className="bg-white pt-32 pb-16 border-t border-ren-gold/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -700,7 +709,7 @@ const Footer = () => {
           <div className="col-span-1 md:col-span-1">
             <span className="font-serif text-4xl font-light tracking-tight text-ren-ink mb-8 block">rén</span>
             <p className="text-ren-ink/40 text-sm leading-relaxed mb-8 font-light">
-              Empowering women to prioritize their wellness through convenient, high-quality herbal solutions.
+              {t.desc}
             </p>
             <div className="flex space-x-6">
               <div className="w-10 h-10 rounded-full border border-ren-gold/20 flex items-center justify-center text-ren-gold hover:bg-ren-gold hover:text-white transition-all cursor-pointer">
@@ -713,46 +722,44 @@ const Footer = () => {
           </div>
           
           <div>
-            <h5 className="font-bold uppercase tracking-[0.3em] text-[10px] mb-8 text-ren-ink">Shop</h5>
+            <h5 className="font-bold uppercase tracking-[0.3em] text-[10px] mb-8 text-ren-ink">{t.shop}</h5>
             <ul className="space-y-5 text-sm text-ren-ink/50 font-light">
-              <li><a href="#" className="hover:text-ren-gold transition-colors">Confinement Packages</a></li>
-              <li><a href="#" className="hover:text-ren-gold transition-colors">Herbal Tea Series</a></li>
-              <li><a href="#" className="hover:text-ren-gold transition-colors">Gift Sets</a></li>
-              <li><a href="#" className="hover:text-ren-gold transition-colors">New Arrivals</a></li>
+              {t.shopLinks.map((link, i) => (
+                <li key={i}><a href="#" className="hover:text-ren-gold transition-colors">{link}</a></li>
+              ))}
             </ul>
           </div>
 
           <div>
-            <h5 className="font-bold uppercase tracking-[0.3em] text-[10px] mb-8 text-ren-ink">Support</h5>
+            <h5 className="font-bold uppercase tracking-[0.3em] text-[10px] mb-8 text-ren-ink">{t.support}</h5>
             <ul className="space-y-5 text-sm text-ren-ink/50 font-light">
-              <li><a href="#" className="hover:text-ren-gold transition-colors">Shipping Info</a></li>
-              <li><a href="#" className="hover:text-ren-gold transition-colors">Returns & Exchanges</a></li>
-              <li><a href="#" className="hover:text-ren-gold transition-colors">FAQ</a></li>
-              <li><a href="#" className="hover:text-ren-gold transition-colors">Contact Us</a></li>
+              {t.supportLinks.map((link, i) => (
+                <li key={i}><a href="#" className="hover:text-ren-gold transition-colors">{link}</a></li>
+              ))}
             </ul>
           </div>
 
           <div>
-            <h5 className="font-bold uppercase tracking-[0.3em] text-[10px] mb-8 text-ren-ink">Newsletter</h5>
-            <p className="text-sm text-ren-ink/40 mb-8 font-light leading-relaxed">Join our community for wellness tips and exclusive offers.</p>
+            <h5 className="font-bold uppercase tracking-[0.3em] text-[10px] mb-8 text-ren-ink">{t.newsletter}</h5>
+            <p className="text-sm text-ren-ink/40 mb-8 font-light leading-relaxed">{t.newsletterDesc}</p>
             <div className="flex border-b border-ren-gold/20 pb-2">
               <input 
                 type="email" 
-                placeholder="Email address" 
+                placeholder={t.emailPlaceholder} 
                 className="bg-transparent border-none px-0 py-2 text-sm w-full outline-none font-light"
               />
-              <button className="text-ren-ink text-[10px] font-bold uppercase tracking-widest hover:text-ren-gold transition-colors">Join</button>
+              <button className="text-ren-ink text-[10px] font-bold uppercase tracking-widest hover:text-ren-gold transition-colors">{t.join}</button>
             </div>
           </div>
         </div>
         
         <div className="pt-12 border-t border-ren-gold/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-[9px] uppercase tracking-[0.4em] text-ren-ink/30 font-bold">
-            © 2024 REN HEALTH. ALL RIGHTS RESERVED.
+            {t.rights}
           </p>
           <div className="flex space-x-8 text-[9px] uppercase tracking-[0.4em] text-ren-ink/30 font-bold">
-            <a href="#" className="hover:text-ren-gold transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-ren-gold transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-ren-gold transition-colors">{t.privacy}</a>
+            <a href="#" className="hover:text-ren-gold transition-colors">{t.terms}</a>
           </div>
         </div>
       </div>
@@ -760,7 +767,8 @@ const Footer = () => {
   );
 };
 
-const PartnersSection = () => {
+const PartnersSection = ({ language }: { language: Language }) => {
+  const t = translations[language].partners;
   const centres = [
     { name: "Cozzi Confinement Centre", image: LOGOS.cozzi },
     { name: "LYC Confinement Centre", image: LOGOS.lyc },
@@ -777,12 +785,12 @@ const PartnersSection = () => {
     <section className="py-24 bg-ren-sand/50 border-y border-ren-gold/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <span className="text-[10px] uppercase tracking-[0.4em] text-ren-gold font-bold mb-4 block">Trusted Ecosystem</span>
-          <h2 className="text-4xl font-serif text-ren-ink">Our Partners & Credentials</h2>
+          <span className="text-[10px] uppercase tracking-[0.4em] text-ren-gold font-bold mb-4 block">{t.label}</span>
+          <h2 className="text-4xl font-serif text-ren-ink">{t.title}</h2>
         </div>
         
         <div className="mb-24">
-          <p className="text-center text-[10px] uppercase tracking-[0.3em] text-ren-ink/30 mb-12 font-bold">Supporting Premier Confinement Centres</p>
+          <p className="text-center text-[10px] uppercase tracking-[0.3em] text-ren-ink/30 mb-12 font-bold">{t.centresLabel}</p>
           <div className="flex flex-wrap justify-center gap-16 md:gap-24 items-center opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
             {centres.map((centre, i) => (
               <div key={i} className="flex flex-col items-center gap-4 group">
@@ -808,12 +816,12 @@ const PartnersSection = () => {
                 <img 
                   src={LOGOS.motherhoodChoice} 
                   className="w-full h-full object-contain grayscale opacity-80" 
-                  alt="Motherhood Choice Award"
+                  alt={t.awardTitle}
                   referrerPolicy="no-referrer"
                 />
               </div>
               <div>
-                <h3 className="text-3xl font-serif text-ren-ink">Motherhood Choice Award</h3>
+                <h3 className="text-3xl font-serif text-ren-ink">{t.awardTitle}</h3>
                 <div className="flex items-center gap-1 text-ren-gold mt-2">
                   <Star size={14} fill="currentColor" />
                   <Star size={14} fill="currentColor" />
@@ -824,16 +832,16 @@ const PartnersSection = () => {
               </div>
             </div>
             <p className="text-ren-ink/50 text-sm leading-relaxed mb-8 font-light">
-              Proudly recognized as the <span className="font-medium text-ren-ink">Best Postnatal Recovery Essential</span>. This award reflects our commitment to quality and the trust thousands of mothers place in REN Health.
+              {t.awardDesc.split(t.awardHighlight)[0]}<span className="font-medium text-ren-ink">{t.awardHighlight}</span>{t.awardDesc.split(t.awardHighlight)[1]}
             </p>
             <div className="flex items-center gap-3 text-ren-gold font-bold text-[10px] uppercase tracking-[0.3em]">
-              <span>Verified Excellence</span>
+              <span>{t.verified}</span>
               <div className="h-[1px] w-16 bg-ren-gold/20" />
             </div>
           </div>
 
           <div className="space-y-12">
-            <p className="text-[10px] uppercase tracking-[0.4em] text-ren-ink/30 font-bold">Strategic Partners</p>
+            <p className="text-[10px] uppercase tracking-[0.4em] text-ren-ink/30 font-bold">{t.strategic}</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
               {partners.map((partner, i) => (
                 <div key={i} className="flex flex-col items-center gap-5 group cursor-pointer">
@@ -850,7 +858,7 @@ const PartnersSection = () => {
               ))}
             </div>
             <p className="text-sm text-ren-ink/40 italic leading-relaxed font-light">
-              Collaborating with industry leaders to bring the best wellness resources to every woman.
+              {t.collab}
             </p>
           </div>
         </div>
@@ -859,20 +867,14 @@ const PartnersSection = () => {
   );
 };
 
-const ContactSection = () => {
+const ContactSection = ({ language }: { language: Language }) => {
+  const t = translations[language].contact;
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
     services: [] as string[]
   });
-
-  const servicesOptions = [
-    "Confinement Packages",
-    "Herbal Tea Series",
-    "Miscarriage Recovery",
-    "Confinement Centre"
-  ];
 
   const handleServiceChange = (service: string) => {
     setFormData(prev => ({
@@ -887,18 +889,18 @@ const ContactSection = () => {
     e.preventDefault();
     
     if (!formData.name || !formData.message || !formData.email) {
-      alert("Please fill in all required fields (Name, Email, and Message).");
+      alert(language === 'en' ? "Please fill in all required fields (Name, Email, and Message)." : "请填写所有必填字段（姓名、电子邮件和留言）。");
       return;
     }
 
     const whatsappNumber = "60124238768"; 
-    const servicesText = formData.services.length > 0 ? formData.services.join(", ") : "None selected";
+    const servicesText = formData.services.length > 0 ? formData.services.join(", ") : (language === 'en' ? "None selected" : "未选择");
     
-    const text = `NEW INQUIRY
-Name: ${formData.name}
-Email: ${formData.email}
-Services: ${servicesText}
-Message: ${formData.message}`;
+    const text = `${language === 'en' ? 'NEW INQUIRY' : '新咨询'}
+${language === 'en' ? 'Name' : '姓名'}: ${formData.name}
+${language === 'en' ? 'Email' : '电子邮件'}: ${formData.email}
+${language === 'en' ? 'Services' : '服务'}: ${servicesText}
+${language === 'en' ? 'Message' : '留言'}: ${formData.message}`;
 
     const encodedText = encodeURIComponent(text);
     window.open(`https://wa.me/${whatsappNumber}?text=${encodedText}`, '_blank');
@@ -908,33 +910,33 @@ Message: ${formData.message}`;
     <section id="contact" className="py-32 bg-ren-sand/30">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
-          <span className="text-ren-gold font-bold uppercase tracking-[0.4em] text-[10px] mb-4 block">Get In Touch</span>
-          <h2 className="text-6xl font-serif mb-6 text-ren-ink">Contact Us</h2>
-          <p className="text-ren-ink/50 font-light">Have questions about our packages or need a personalized recommendation? We're here to help.</p>
+          <span className="text-ren-gold font-bold uppercase tracking-[0.4em] text-[10px] mb-4 block">{t.label}</span>
+          <h2 className="text-6xl font-serif mb-6 text-ren-ink">{t.title}</h2>
+          <p className="text-ren-ink/50 font-light">{t.desc}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="bg-white p-10 md:p-16 rounded-[60px] shadow-sm border border-ren-gold/5">
           <div className="space-y-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <div>
-                <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-ren-ink/40 mb-4">Name *</label>
+                <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-ren-ink/40 mb-4">{t.form.name}</label>
                 <input 
                   type="text" 
                   required
                   className="w-full bg-ren-sand/50 border-b border-ren-gold/10 px-0 py-4 outline-none focus:border-ren-gold transition-all font-light"
-                  placeholder="Your full name"
+                  placeholder={t.form.namePlaceholder}
                   value={formData.name}
                   onChange={e => setFormData({...formData, name: e.target.value})}
                 />
               </div>
 
               <div>
-                <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-ren-ink/40 mb-4">Email *</label>
+                <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-ren-ink/40 mb-4">{t.form.email}</label>
                 <input 
                   type="email" 
                   required
                   className="w-full bg-ren-sand/50 border-b border-ren-gold/10 px-0 py-4 outline-none focus:border-ren-gold transition-all font-light"
-                  placeholder="Your email address"
+                  placeholder={t.form.emailPlaceholder}
                   value={formData.email}
                   onChange={e => setFormData({...formData, email: e.target.value})}
                 />
@@ -942,9 +944,9 @@ Message: ${formData.message}`;
             </div>
 
             <div>
-              <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-ren-ink/40 mb-6">Help Needed</label>
+              <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-ren-ink/40 mb-6">{t.form.help}</label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {servicesOptions.map(service => (
+                {t.form.services.map(service => (
                   <label key={service} className="flex items-center gap-4 cursor-pointer group">
                     <div 
                       onClick={() => handleServiceChange(service)}
@@ -963,12 +965,12 @@ Message: ${formData.message}`;
             </div>
 
             <div>
-              <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-ren-ink/40 mb-4">Message *</label>
+              <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-ren-ink/40 mb-4">{t.form.message}</label>
               <textarea 
                 required
                 rows={4}
                 className="w-full bg-ren-sand/50 border-b border-ren-gold/10 px-0 py-4 outline-none focus:border-ren-gold transition-all resize-none font-light"
-                placeholder="How can we support you today?"
+                placeholder={t.form.messagePlaceholder}
                 value={formData.message}
                 onChange={e => setFormData({...formData, message: e.target.value})}
               />
@@ -978,7 +980,7 @@ Message: ${formData.message}`;
               type="submit"
               className="w-full bg-ren-ink text-white py-6 rounded-full font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-ren-gold transition-all shadow-2xl shadow-ren-ink/20 flex items-center justify-center gap-4"
             >
-              Submit Inquiry <ChevronRight size={16} />
+              {t.form.submit} <ChevronRight size={16} />
             </button>
           </div>
         </form>
@@ -988,21 +990,23 @@ Message: ${formData.message}`;
 };
 
 export default function App() {
+  const [language, setLanguage] = useState<Language>('en');
+
   return (
     <div className="min-h-screen selection:bg-ren-gold/20">
-      <Navbar />
+      <Navbar language={language} setLanguage={setLanguage} />
       <main>
-        <Hero />
-        <PartnersSection />
-        <Features />
-        <ConfinementSection />
-        <TestimonialsSection />
-        <MiscarriageSection />
-        <TeaSection />
-        <AboutSection />
-        <ContactSection />
+        <Hero language={language} />
+        <PartnersSection language={language} />
+        <Features language={language} />
+        <ConfinementSection language={language} />
+        <TestimonialsSection language={language} />
+        <MiscarriageSection language={language} />
+        <TeaSection language={language} />
+        <AboutSection language={language} />
+        <ContactSection language={language} />
       </main>
-      <Footer />
+      <Footer language={language} />
     </div>
   );
 }

@@ -63,8 +63,6 @@ export const translations = {
       desc: "Daily wellness in every sip. Functional blends for the modern lifestyle.",
       viewFull: "View Full Collection",
       items: [
-        { name: 'Liver Detox Flower Tea', desc: 'Refresh and cleanse your system from daily stressors.' },
-        { name: 'Sleep & Relax Flower Tea', desc: 'Unwind with calming botanicals for a restful night.' },
         { name: 'Dampness Removing Tea', desc: 'Balance your body and reduce bloating naturally.' },
         { name: 'Red Date Longan Tea', desc: 'Classic nourishment for blood health and vitality.' }
       ]
@@ -203,8 +201,6 @@ export const translations = {
       desc: "每一口都是每日的健康。适合现代生活方式的功能性调配茶。",
       viewFull: "查看完整系列",
       items: [
-        { name: '清肝排毒花茶', desc: '从日常压力中刷新并净化您的系统。' },
-        { name: '安神助眠花茶', desc: '用镇静的植物成分放松身心，享受安稳睡眠。' },
         { name: '祛湿调理茶', desc: '自然平衡身体，减少浮肿。' },
         { name: '红枣龙眼茶', desc: '补血养颜、提升活力的经典滋补。' }
       ]
