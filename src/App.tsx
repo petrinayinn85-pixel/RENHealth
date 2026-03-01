@@ -34,13 +34,13 @@ interface Product {
 
 const LOGOS = {
   motherhoodChoice: "/Motherh Choice.jpg",
-  lyc: "/LYC Confinement.png",
-  cozzi: "/Cozzi Confinement.png",
-  itsHerbs: "/itsHerbs.png",
-  motherhood: "/Motherhood.com.my.png",
-  kelabmama: "/Kelabmama.com.png",
-  gracie: "/Gracie Confinement.png",
-  byond: "/Byond28 Confinement.png",
+  lyc: "/LYC Confinement.jpg",
+  cozzi: "/Cozzi Confinement.jpg",
+  itsHerbs: "/itsHerbs.jpg",
+  motherhood: "/Motherhood.com.my.jpg",
+  kelabmama: "/Kelabmama.com.jpg",
+  gracie: "/Gracie Confinement.jpg",
+  byond: "/Byond28 Confinement.jpg",
 };
 
 const CONFINEMENT_PACKAGES: Product[] = [
@@ -280,8 +280,6 @@ const Hero = ({ language }: { language: Language }) => {
               <iframe 
                 src="https://www.instagram.com/reel/DHx5jUlTfwI/embed/" 
                 className="w-full h-full border-none"
-                scrolling="no"
-                allowTransparency={true}
                 allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
               ></iframe>
             </div>
