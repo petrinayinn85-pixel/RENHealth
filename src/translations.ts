@@ -7,7 +7,7 @@ export const translations = {
       teas: "Herbal Teas",
       story: "Our Story",
       contact: "Contact",
-      shop: "Shop Now"
+      shop: "Enquire Now"
     },
     hero: {
       badge: "Modern Herbal Wisdom",
@@ -30,7 +30,7 @@ export const translations = {
       label: "Postnatal Restoration",
       title: "Confinement Packages",
       desc: "Traditional recovery made modern. Choose the duration that fits your healing journey.",
-      addToCart: "Add to Cart",
+      whatsappEnquiry: "WhatsApp Enquiry",
       packages: [
         {
           name: '14-Day Essentials',
@@ -55,7 +55,7 @@ export const translations = {
       desc: "We understand that recovery is both physical and emotional. Our 7-day specialized package provides gentle, nourishing support to help your body heal and restore its natural balance during this sensitive time.",
       pkgName: "7-Day Recovery",
       features: ['Gentle Uterus Care', 'Emotional Balance Support', 'Basic Vitality Replenishment'],
-      addToCart: "Add to Cart"
+      whatsappEnquiry: "WhatsApp Enquiry"
     },
     teas: {
       label: "Daily Rituals",
@@ -136,7 +136,51 @@ export const translations = {
       join: "Join",
       rights: "© 2024 REN HEALTH. ALL RIGHTS RESERVED.",
       privacy: "Privacy Policy",
-      terms: "Terms of Service"
+      terms: "Terms of Service",
+      privacyContent: {
+        title: "Privacy Policy",
+        items: [
+          "We value your privacy and only collect data necessary for order fulfillment and customer support.",
+          "Your personal information is never shared with third parties for marketing purposes without your explicit consent.",
+          "We implement industry-standard security measures to protect your data from unauthorized access.",
+          "By using our website, you consent to our privacy practices as described here."
+        ]
+      },
+      termsContent: {
+        title: "Terms of Service",
+        items: [
+          "All content on this website is for informational purposes only and does not constitute medical advice.",
+          "Our herbal products are intended for wellness support and are not meant to diagnose, treat, or cure any disease.",
+          "Product availability and descriptions are subject to change without prior notice.",
+          "We reserve the right to refuse service to anyone for any reason at any time."
+        ]
+      },
+      shippingContent: {
+        title: "Shipping Information",
+        items: [
+          "Standard delivery: 3-5 working days within West Malaysia.",
+          "East Malaysia: 7-10 working days.",
+          "Free shipping on orders above RM200.",
+          "Tracking number will be provided via WhatsApp/Email once shipped."
+        ]
+      },
+      returnsContent: {
+        title: "Returns & Exchanges",
+        items: [
+          "7-day return policy for items in unopened and original condition.",
+          "Due to hygiene reasons, herbal products and teas cannot be returned once the seal is broken.",
+          "Return shipping costs are borne by the customer unless the item is defective.",
+          "Contact our support team for any exchange requests."
+        ]
+      },
+      faqContent: {
+        title: "Frequently Asked Questions",
+        items: [
+          { q: "Are the herbs safe for everyone?", a: "Our formulas are 100% natural and crafted with TCM specialists. However, we recommend consulting your healthcare provider if you have specific medical conditions." },
+          { q: "How do I prepare the confinement herbs?", a: "Each package includes simple, step-by-step instructions. Most require minimal preparation, designed for the busy modern mother." },
+          { q: "Can I customize my package?", a: "Yes, please contact us via WhatsApp for personalized recommendations based on your specific needs." }
+        ]
+      }
     }
   },
   zh: {
@@ -145,7 +189,7 @@ export const translations = {
       teas: "草本茶系列",
       story: "品牌故事",
       contact: "联系我们",
-      shop: "立即购买"
+      shop: "立即咨询"
     },
     hero: {
       badge: "现代草本智慧",
@@ -168,7 +212,7 @@ export const translations = {
       label: "产后修复",
       title: "坐月子套餐",
       desc: "传统修复，现代呈现。选择适合您康复旅程的周期。",
-      addToCart: "加入购物车",
+      whatsappEnquiry: "WhatsApp 咨询",
       packages: [
         {
           name: '14天基础套餐',
@@ -193,7 +237,7 @@ export const translations = {
       desc: "我们深知康复不仅是身体上的，也是情感上的。我们的7天专业套餐提供温和、滋养的支持，帮助您的身体在这个敏感时期恢复自然平衡。",
       pkgName: "7天修复套餐",
       features: ['温和子宫护理', '情绪平衡支持', '基础活力补充'],
-      addToCart: "加入购物车"
+      whatsappEnquiry: "WhatsApp 咨询"
     },
     teas: {
       label: "每日仪式",
@@ -274,7 +318,51 @@ export const translations = {
       join: "加入",
       rights: "© 2024 REN HEALTH. 版权所有。",
       privacy: "隐私政策",
-      terms: "服务条款"
+      terms: "服务条款",
+      privacyContent: {
+        title: "隐私政策",
+        items: [
+          "我们重视您的隐私，仅收集订单履行和客户支持所需的数据。",
+          "未经您的明确同意，您的个人信息绝不会出于营销目的与第三方共享。",
+          "我们实施行业标准的安全措施，以保护您的数据免受未经授权的访问。",
+          "使用我们的网站，即表示您同意此处所述的隐私惯例。"
+        ]
+      },
+      termsContent: {
+        title: "服务条款",
+        items: [
+          "本网站上的所有内容仅供参考，不构成医疗建议。",
+          "我们的草药产品旨在提供健康支持，不用于诊断、治疗或治愈任何疾病。",
+          "产品供应情况和描述如有更改，恕不另行通知。",
+          "我们保留随时以任何理由拒绝向任何人提供服务的权利。"
+        ]
+      },
+      shippingContent: {
+        title: "配送信息",
+        items: [
+          "标准配送：西马 3-5 个工作日。",
+          "东马：7-10 个工作日。",
+          "订单满 RM200 免运费。",
+          "发货后将通过 WhatsApp/电子邮件提供物流单号。"
+        ]
+      },
+      returnsContent: {
+        title: "退换货政策",
+        items: [
+          "未拆封且保持原状的商品享有 7 天退货政策。",
+          "出于卫生原因，草药产品和茶叶一旦拆封，恕不退换。",
+          "除非商品有缺陷，否则退货运费由客户承担。",
+          "如有任何换货请求，请联系我们的支持团队。"
+        ]
+      },
+      faqContent: {
+        title: "常见问题",
+        items: [
+          { q: "这些草药对每个人都安全吗？", a: "我们的配方是 100% 天然的，并与中医专家共同打造。但是，如果您有特定的身体状况，我们建议咨询您的医疗保健人员。" },
+          { q: "如何准备坐月子草药？", a: "每个包装都包含简单的分步说明。大多数只需要极少的准备，专为忙碌的现代母亲设计。" },
+          { q: "我可以定制我的套餐吗？", a: "可以，请通过 WhatsApp 联系我们，根据您的具体需求获取个性化建议。" }
+        ]
+      }
     }
   }
 };

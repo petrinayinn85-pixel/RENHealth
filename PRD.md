@@ -18,7 +18,7 @@ REN Health is a wellness brand dedicated to modern women and mothers. We provide
 - **Credentials & Partnerships**: Highlighting support for major confinement centres (Cozzi, LYC, Byond28, Gracie) and partners (itsHerbs, Motherhood.com.my, Kelabmama.com).
 - **Awards**: Motherhood Choice Award for Best Postnatal Recovery Essential.
 - **About Us**: Heartwarming brand story ("A Love Letter to Every Woman") emphasizing female wellness and the collaboration with TCM specialists from itsHerbs.com.
-- **Contact Section**: Interactive form with WhatsApp integration (60124238768) for direct inquiries, including Confinement Centre support.
+- **Contact Section**: Interactive form with WhatsApp integration (60142080853) for direct inquiries, including Confinement Centre support.
 
 ## 4. Visual Identity
 - **Mood**: Warm, Organic, Refined, Trustworthy.

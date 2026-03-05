@@ -161,9 +161,9 @@ const Navbar = ({ language, setLanguage }: { language: Language, setLanguage: (l
               </button>
             </div>
 
-            <button className="bg-ren-ink text-white px-8 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-ren-gold transition-all">
+            <a href="#contact" className="bg-ren-ink text-white px-8 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-ren-gold transition-all">
               {t.shop}
-            </button>
+            </a>
           </div>
 
           <div className="md:hidden flex items-center gap-4">
@@ -208,7 +208,7 @@ const Navbar = ({ language, setLanguage }: { language: Language, setLanguage: (l
                   简体中文
                 </button>
               </div>
-              <button className="w-full bg-ren-ink text-white py-3 rounded-full font-bold uppercase tracking-widest text-xs">{t.shop}</button>
+              <a href="#contact" onClick={() => setIsOpen(false)} className="w-full bg-ren-ink text-white py-3 rounded-full font-bold uppercase tracking-widest text-xs text-center">{t.shop}</a>
             </div>
           </motion.div>
         )}
@@ -364,10 +364,15 @@ const ConfinementSection = ({ language }: { language: Language }) => {
                     </li>
                   ))}
                 </ul>
-                <div className="flex items-center justify-between pt-8 border-t border-ren-gold/10">
-                  <span className="text-2xl font-serif text-ren-gold">{pkg.price}</span>
-                  <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-ren-ink hover:text-ren-gold transition-colors">
-                    {t.addToCart} <ShoppingBag size={16} />
+                <div className="flex items-center justify-end pt-8 border-t border-ren-gold/10">
+                  <button 
+                    onClick={() => {
+                      const text = encodeURIComponent(language === 'en' ? `Hi, I'm interested in the ${t.packages[idx].name} package.` : `您好，我对 ${t.packages[idx].name} 套餐感兴趣。`);
+                      window.open(`https://wa.me/60142080853?text=${text}`, '_blank');
+                    }}
+                    className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-ren-ink hover:text-ren-gold transition-colors"
+                  >
+                    {t.whatsappEnquiry} <ShoppingBag size={16} />
                   </button>
                 </div>
               </div>
@@ -494,10 +499,15 @@ const MiscarriageSection = ({ language }: { language: Language }) => {
                   </li>
                 ))}
               </ul>
-              <div className="flex items-center justify-between pt-10 border-t border-ren-gold/10">
-                <span className="text-3xl font-serif text-ren-gold">{MISCARRIAGE_PACKAGE.price}</span>
-                <button className="bg-ren-ink text-white px-10 py-4 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-ren-gold transition-all shadow-xl shadow-ren-ink/10">
-                  {t.addToCart}
+              <div className="flex items-center justify-end pt-10 border-t border-ren-gold/10">
+                <button 
+                  onClick={() => {
+                    const text = encodeURIComponent(language === 'en' ? `Hi, I'm interested in the ${t.pkgName} package.` : `您好，我对 ${t.pkgName} 套餐感兴趣。`);
+                    window.open(`https://wa.me/60142080853?text=${text}`, '_blank');
+                  }}
+                  className="bg-ren-ink text-white px-10 py-4 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-ren-gold transition-all shadow-xl shadow-ren-ink/10"
+                >
+                  {t.whatsappEnquiry}
                 </button>
               </div>
             </div>
@@ -563,7 +573,16 @@ const TeaSection = ({ language }: { language: Language }) => {
               </div>
               <h4 className="text-xl font-serif mb-2 text-ren-ink group-hover:text-ren-gold transition-colors">{t.items[idx].name}</h4>
               <p className="text-ren-ink/40 text-xs mb-4 line-clamp-1 font-light tracking-wide">{t.items[idx].desc}</p>
-              <span className="text-sm font-medium text-ren-gold tracking-widest">{tea.price}</span>
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const text = encodeURIComponent(language === 'en' ? `Hi, I'm interested in the ${t.items[idx].name}.` : `您好，我对 ${t.items[idx].name} 感兴趣。`);
+                  window.open(`https://wa.me/60142080853?text=${text}`, '_blank');
+                }}
+                className="text-[10px] font-bold uppercase tracking-widest text-ren-gold hover:text-ren-ink transition-colors"
+              >
+                {language === 'en' ? 'Enquire Now' : '立即咨询'}
+              </button>
             </motion.div>
           ))}
         </div>
@@ -699,6 +718,20 @@ const AboutSection = ({ language }: { language: Language }) => {
 
 const Footer = ({ language }: { language: Language }) => {
   const t = translations[language].footer;
+  const [activePolicy, setActivePolicy] = useState<'shipping' | 'returns' | 'faq' | 'privacy' | 'terms' | null>(null);
+
+  const getPolicyContent = () => {
+    switch (activePolicy) {
+      case 'shipping': return t.shippingContent;
+      case 'returns': return t.returnsContent;
+      case 'faq': return t.faqContent;
+      case 'privacy': return t.privacyContent;
+      case 'terms': return t.termsContent;
+      default: return null;
+    }
+  };
+
+  const policy = getPolicyContent();
 
   return (
     <footer className="bg-white pt-32 pb-16 border-t border-ren-gold/10">
@@ -723,7 +756,7 @@ const Footer = ({ language }: { language: Language }) => {
             <h5 className="font-bold uppercase tracking-[0.3em] text-[10px] mb-8 text-ren-ink">{t.shop}</h5>
             <ul className="space-y-5 text-sm text-ren-ink/50 font-light">
               {t.shopLinks.map((link, i) => (
-                <li key={i}><a href="#" className="hover:text-ren-gold transition-colors">{link}</a></li>
+                <li key={i}><a href="#confinement" className="hover:text-ren-gold transition-colors">{link}</a></li>
               ))}
             </ul>
           </div>
@@ -731,9 +764,35 @@ const Footer = ({ language }: { language: Language }) => {
           <div>
             <h5 className="font-bold uppercase tracking-[0.3em] text-[10px] mb-8 text-ren-ink">{t.support}</h5>
             <ul className="space-y-5 text-sm text-ren-ink/50 font-light">
-              {t.supportLinks.map((link, i) => (
-                <li key={i}><a href="#" className="hover:text-ren-gold transition-colors">{link}</a></li>
-              ))}
+              <li>
+                <button 
+                  onClick={() => setActivePolicy('shipping')}
+                  className="hover:text-ren-gold transition-colors text-left"
+                >
+                  {t.supportLinks[0]}
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => setActivePolicy('returns')}
+                  className="hover:text-ren-gold transition-colors text-left"
+                >
+                  {t.supportLinks[1]}
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => setActivePolicy('faq')}
+                  className="hover:text-ren-gold transition-colors text-left"
+                >
+                  {t.supportLinks[2]}
+                </button>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-ren-gold transition-colors">
+                  {t.supportLinks[3]}
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -756,11 +815,81 @@ const Footer = ({ language }: { language: Language }) => {
             {t.rights}
           </p>
           <div className="flex space-x-8 text-[9px] uppercase tracking-[0.4em] text-ren-ink/30 font-bold">
-            <a href="#" className="hover:text-ren-gold transition-colors">{t.privacy}</a>
-            <a href="#" className="hover:text-ren-gold transition-colors">{t.terms}</a>
+            <button 
+              onClick={() => setActivePolicy('privacy')}
+              className="hover:text-ren-gold transition-colors"
+            >
+              {t.privacy}
+            </button>
+            <button 
+              onClick={() => setActivePolicy('terms')}
+              className="hover:text-ren-gold transition-colors"
+            >
+              {t.terms}
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Policy Modal Overlay */}
+      <AnimatePresence>
+        {activePolicy && policy && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActivePolicy(null)}
+              className="absolute inset-0 bg-ren-ink/40 backdrop-blur-sm"
+            />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative bg-white w-full max-w-2xl rounded-[40px] shadow-2xl overflow-hidden"
+            >
+              <div className="p-8 md:p-12">
+                <div className="flex justify-between items-center mb-10">
+                  <h3 className="text-3xl font-serif text-ren-ink">{policy.title}</h3>
+                  <button 
+                    onClick={() => setActivePolicy(null)}
+                    className="p-2 hover:bg-ren-sand rounded-full transition-colors"
+                  >
+                    <X size={24} />
+                  </button>
+                </div>
+
+                <div className="space-y-6 max-h-[60vh] overflow-y-auto pr-4 custom-scrollbar">
+                  {activePolicy === 'faq' ? (
+                    (policy.items as {q: string, a: string}[]).map((item, i) => (
+                      <div key={i} className="space-y-2">
+                        <h4 className="font-bold text-ren-ink text-sm uppercase tracking-wider">{item.q}</h4>
+                        <p className="text-ren-ink/60 text-sm leading-relaxed font-light">{item.a}</p>
+                      </div>
+                    ))
+                  ) : (
+                    (policy.items as string[]).map((item, i) => (
+                      <div key={i} className="flex gap-4">
+                        <div className="w-1.5 h-1.5 rounded-full bg-ren-gold mt-2 flex-shrink-0" />
+                        <p className="text-ren-ink/60 text-sm leading-relaxed font-light">{item}</p>
+                      </div>
+                    ))
+                  )}
+                </div>
+
+                <div className="mt-12 pt-8 border-t border-ren-gold/10 flex justify-end">
+                  <button 
+                    onClick={() => setActivePolicy(null)}
+                    className="bg-ren-ink text-white px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-ren-gold transition-all"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </footer>
   );
 };
@@ -891,7 +1020,7 @@ const ContactSection = ({ language }: { language: Language }) => {
       return;
     }
 
-    const whatsappNumber = "60124238768"; 
+    const whatsappNumber = "60142080853"; 
     const servicesText = formData.services.length > 0 ? formData.services.join(", ") : (language === 'en' ? "None selected" : "未选择");
     
     const text = `${language === 'en' ? 'NEW INQUIRY' : '新咨询'}
