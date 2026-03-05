@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  Leaf, 
-  Clock, 
-  Heart, 
-  ShoppingBag, 
-  Menu, 
-  X, 
-  ChevronRight, 
+import {
+  Leaf,
+  Clock,
+  Heart,
+  ShoppingBag,
+  Menu,
+  X,
+  ChevronRight,
   ChevronLeft,
   Star,
   Coffee,
@@ -33,14 +33,14 @@ interface Product {
 // --- Constants ---
 
 const LOGOS = {
-  motherhoodChoice: "/Motherh Choice.jpg",
-  lyc: "/LYC Confinement.jpg",
-  cozzi: "/Cozzi Confinement.jpg",
-  itsHerbs: "/itsHerbs.jpg",
-  motherhood: "/Motherhood.com.my.jpg",
-  kelabmama: "/Kelabmama.com.jpg",
-  gracie: "/Gracie Confinement.jpg",
-  byond: "/Byond28 Confinement.jpg",
+  motherhoodChoice: "/Motherhood Choice.jpg",
+  lyc: "/LYC Confinement.png",
+  cozzi: "/Cozzi Confinement.png",
+  itsHerbs: "/ItsHerbs.png",
+  motherhood: "/Motherhood.com.my.png",
+  kelabmama: "/Kelabmama.com.png",
+  gracie: "/Gracie Confinement.png",
+  byond: "/Byond28 Confinement.png",
 };
 
 const CONFINEMENT_PACKAGES: Product[] = [
@@ -139,21 +139,21 @@ const Navbar = ({ language, setLanguage }: { language: Language, setLanguage: (l
           <div className="flex-shrink-0 flex items-center">
             <span className="font-serif text-3xl font-light tracking-tight text-ren-ink">rén</span>
           </div>
-          
+
           <div className="hidden md:flex space-x-8 items-center">
             <a href="#confinement" className="text-[10px] font-bold hover:text-ren-gold transition-colors uppercase tracking-[0.2em]">{t.confinement}</a>
             <a href="#teas" className="text-[10px] font-bold hover:text-ren-gold transition-colors uppercase tracking-[0.2em]">{t.teas}</a>
             <a href="#about" className="text-[10px] font-bold hover:text-ren-gold transition-colors uppercase tracking-[0.2em]">{t.story}</a>
             <a href="#contact" className="text-[10px] font-bold hover:text-ren-gold transition-colors uppercase tracking-[0.2em]">{t.contact}</a>
-            
+
             <div className="flex items-center gap-4 ml-4 pl-4 border-l border-ren-gold/20">
-              <button 
+              <button
                 onClick={() => setLanguage('en')}
                 className={`text-[10px] font-bold transition-colors ${language === 'en' ? 'text-ren-gold' : 'text-ren-ink/40 hover:text-ren-gold'}`}
               >
                 EN
               </button>
-              <button 
+              <button
                 onClick={() => setLanguage('zh')}
                 className={`text-[10px] font-bold transition-colors ${language === 'zh' ? 'text-ren-gold' : 'text-ren-ink/40 hover:text-ren-gold'}`}
               >
@@ -167,7 +167,7 @@ const Navbar = ({ language, setLanguage }: { language: Language, setLanguage: (l
           </div>
 
           <div className="md:hidden flex items-center gap-4">
-            <button 
+            <button
               onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}
               className="p-2 text-ren-ink/60"
             >
@@ -183,7 +183,7 @@ const Navbar = ({ language, setLanguage }: { language: Language, setLanguage: (l
       {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -195,13 +195,13 @@ const Navbar = ({ language, setLanguage }: { language: Language, setLanguage: (l
               <a href="#about" onClick={() => setIsOpen(false)} className="block text-lg font-serif">{t.story}</a>
               <a href="#contact" onClick={() => setIsOpen(false)} className="block text-lg font-serif">{t.contact}</a>
               <div className="flex gap-4 pt-4 border-t border-ren-gold/10">
-                <button 
+                <button
                   onClick={() => { setLanguage('en'); setIsOpen(false); }}
                   className={`text-sm font-bold ${language === 'en' ? 'text-ren-gold' : 'text-ren-ink/40'}`}
                 >
                   English
                 </button>
-                <button 
+                <button
                   onClick={() => { setLanguage('zh'); setIsOpen(false); }}
                   className={`text-sm font-bold ${language === 'zh' ? 'text-ren-gold' : 'text-ren-ink/40'}`}
                 >
@@ -223,14 +223,14 @@ const Hero = ({ language }: { language: Language }) => {
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <img 
-          src="/OurStory.jpg" 
+        <img
+          src="/OurStory.jpg"
           className="w-full h-full object-cover opacity-20 blur-sm"
           alt="Wellness Background"
           referrerPolicy="no-referrer"
         />
       </div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -243,9 +243,9 @@ const Hero = ({ language }: { language: Language }) => {
                 {t.badge}
               </span>
               <div className="flex items-center gap-2 bg-ren-gold/5 px-3 py-1 rounded-full border border-ren-gold/10">
-                <img 
-                  src={LOGOS.motherhoodChoice} 
-                  className="w-4 h-4 rounded-full object-contain grayscale opacity-70" 
+                <img
+                  src={LOGOS.motherhoodChoice}
+                  className="w-4 h-4 rounded-full object-contain grayscale opacity-70"
                   alt="Award"
                   referrerPolicy="no-referrer"
                 />
@@ -277,8 +277,8 @@ const Hero = ({ language }: { language: Language }) => {
             className="relative"
           >
             <div className="aspect-[4/5] rounded-[40px] overflow-hidden shadow-2xl">
-              <iframe 
-                src="https://www.instagram.com/reel/DHx5jUlTfwI/embed/" 
+              <iframe
+                src="https://www.instagram.com/reel/DHx5jUlTfwI/embed/"
                 className="w-full h-full border-none"
                 allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
               ></iframe>
@@ -310,7 +310,7 @@ const Features = ({ language }: { language: Language }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
           {t.map((item, idx) => (
-            <motion.div 
+            <motion.div
               key={idx}
               whileInView={{ opacity: 1, y: 0 }}
               initial={{ opacity: 0, y: 20 }}
@@ -365,7 +365,7 @@ const ConfinementSection = ({ language }: { language: Language }) => {
                   ))}
                 </ul>
                 <div className="flex items-center justify-end pt-8 border-t border-ren-gold/10">
-                  <button 
+                  <button
                     onClick={() => {
                       const text = encodeURIComponent(language === 'en' ? `Hi, I'm interested in the ${t.packages[idx].name} package.` : `您好，我对 ${t.packages[idx].name} 套餐感兴趣。`);
                       window.open(`https://wa.me/60142080853?text=${text}`, '_blank');
@@ -418,8 +418,8 @@ const TestimonialsSection = ({ language }: { language: Language }) => {
                 <div className="mb-10 flex justify-center">
                   <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-2xl bg-ren-sand flex items-center justify-center">
                     {TESTIMONIALS[currentIndex].image ? (
-                      <img 
-                        src={TESTIMONIALS[currentIndex].image} 
+                      <img
+                        src={TESTIMONIALS[currentIndex].image}
                         alt={t.items[currentIndex].name}
                         className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
                         referrerPolicy="no-referrer"
@@ -442,7 +442,7 @@ const TestimonialsSection = ({ language }: { language: Language }) => {
 
           {/* Navigation */}
           <div className="flex justify-center items-center gap-12 mt-16">
-            <button 
+            <button
               onClick={prev}
               className="w-14 h-14 rounded-full border border-ren-gold/20 flex items-center justify-center text-ren-gold hover:bg-ren-gold hover:text-white transition-all duration-500"
             >
@@ -453,13 +453,12 @@ const TestimonialsSection = ({ language }: { language: Language }) => {
                 <button
                   key={i}
                   onClick={() => setCurrentIndex(i)}
-                  className={`h-1 rounded-full transition-all duration-500 ${
-                    currentIndex === i ? 'w-12 bg-ren-gold' : 'w-4 bg-ren-gold/20'
-                  }`}
+                  className={`h-1 rounded-full transition-all duration-500 ${currentIndex === i ? 'w-12 bg-ren-gold' : 'w-4 bg-ren-gold/20'
+                    }`}
                 />
               ))}
             </div>
-            <button 
+            <button
               onClick={next}
               className="w-14 h-14 rounded-full border border-ren-gold/20 flex items-center justify-center text-ren-gold hover:bg-ren-gold hover:text-white transition-all duration-500"
             >
@@ -500,7 +499,7 @@ const MiscarriageSection = ({ language }: { language: Language }) => {
                 ))}
               </ul>
               <div className="flex items-center justify-end pt-10 border-t border-ren-gold/10">
-                <button 
+                <button
                   onClick={() => {
                     const text = encodeURIComponent(language === 'en' ? `Hi, I'm interested in the ${t.pkgName} package.` : `您好，我对 ${t.pkgName} 套餐感兴趣。`);
                     window.open(`https://wa.me/60142080853?text=${text}`, '_blank');
@@ -520,8 +519,8 @@ const MiscarriageSection = ({ language }: { language: Language }) => {
             className="order-1 lg:order-2"
           >
             <div className="aspect-[4/5] rounded-[60px] overflow-hidden shadow-2xl relative">
-              <img 
-                src={MISCARRIAGE_PACKAGE.image} 
+              <img
+                src={MISCARRIAGE_PACKAGE.image}
                 className="w-full h-full object-cover"
                 alt="Miscarriage Recovery Care"
                 referrerPolicy="no-referrer"
@@ -563,17 +562,17 @@ const TeaSection = ({ language }: { language: Language }) => {
               className="group cursor-pointer"
             >
               <div className="aspect-square rounded-[40px] overflow-hidden mb-8 relative shadow-sm group-hover:shadow-2xl transition-all duration-700">
-                <img 
-                  src={tea.image} 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" 
-                  alt={t.items[idx].name} 
+                <img
+                  src={tea.image}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                  alt={t.items[idx].name}
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-ren-ink/5 group-hover:bg-transparent transition-colors" />
               </div>
               <h4 className="text-xl font-serif mb-2 text-ren-ink group-hover:text-ren-gold transition-colors">{t.items[idx].name}</h4>
               <p className="text-ren-ink/40 text-xs mb-4 line-clamp-1 font-light tracking-wide">{t.items[idx].desc}</p>
-              <button 
+              <button
                 onClick={(e) => {
                   e.stopPropagation();
                   const text = encodeURIComponent(language === 'en' ? `Hi, I'm interested in the ${t.items[idx].name}.` : `您好，我对 ${t.items[idx].name} 感兴趣。`);
@@ -601,10 +600,10 @@ const AboutSection = ({ language }: { language: Language }) => {
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-ren-gold/5 rounded-full blur-3xl" />
         <div className="absolute top-1/2 -right-24 w-64 h-64 bg-ren-rose/10 rounded-full blur-3xl" />
       </div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-          
+
           {/* Left Column: Vertical Rail & Image */}
           <div className="lg:col-span-5 relative order-2 lg:order-1">
             <div className="flex gap-8 items-start">
@@ -614,25 +613,25 @@ const AboutSection = ({ language }: { language: Language }) => {
                   {language === 'en' ? 'ESTABLISHED 2024 • HERITAGE & HEART' : '始于 2024 • 传承与初心'}
                 </span>
               </div>
-              
+
               <div className="relative flex-1">
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 1 }}
                   className="rounded-[60px] overflow-hidden aspect-video shadow-2xl relative z-10"
                 >
-                  <img 
-                    src="/OurStory.jpg" 
+                  <img
+                    src="/OurStory.jpg"
                     className="w-full h-full object-cover"
                     alt="Our Story"
                     referrerPolicy="no-referrer"
                   />
                 </motion.div>
-                
+
                 {/* Floating Badge */}
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -658,12 +657,12 @@ const AboutSection = ({ language }: { language: Language }) => {
                 <div className="h-[1px] w-12 bg-ren-gold/30" />
                 <span className="text-ren-gold font-bold uppercase tracking-[0.2em] text-[10px]">{t.label}</span>
               </div>
-              
+
               <h2 className="text-6xl md:text-7xl font-serif mb-10 leading-[0.9] text-ren-ink">
                 {t.title1} <br />
                 <span className="italic text-ren-rose font-light">{t.title2}</span>
               </h2>
-              
+
               <div className="space-y-8 text-lg text-ren-ink/70 leading-relaxed max-w-2xl">
                 <p>
                   {t.p1}
@@ -671,7 +670,7 @@ const AboutSection = ({ language }: { language: Language }) => {
                 <p>
                   {t.p2}
                 </p>
-                
+
                 <div className="relative py-10 my-12">
                   <div className="absolute inset-0 bg-ren-sand/50 rounded-[40px] -rotate-1" />
                   <div className="relative px-10">
@@ -709,7 +708,7 @@ const AboutSection = ({ language }: { language: Language }) => {
               </div>
             </motion.div>
           </div>
-          
+
         </div>
       </div>
     </section>
@@ -751,7 +750,7 @@ const Footer = ({ language }: { language: Language }) => {
               </div>
             </div>
           </div>
-          
+
           <div>
             <h5 className="font-bold uppercase tracking-[0.3em] text-[10px] mb-8 text-ren-ink">{t.shop}</h5>
             <ul className="space-y-5 text-sm text-ren-ink/50 font-light">
@@ -765,7 +764,7 @@ const Footer = ({ language }: { language: Language }) => {
             <h5 className="font-bold uppercase tracking-[0.3em] text-[10px] mb-8 text-ren-ink">{t.support}</h5>
             <ul className="space-y-5 text-sm text-ren-ink/50 font-light">
               <li>
-                <button 
+                <button
                   onClick={() => setActivePolicy('shipping')}
                   className="hover:text-ren-gold transition-colors text-left"
                 >
@@ -773,7 +772,7 @@ const Footer = ({ language }: { language: Language }) => {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={() => setActivePolicy('returns')}
                   className="hover:text-ren-gold transition-colors text-left"
                 >
@@ -781,7 +780,7 @@ const Footer = ({ language }: { language: Language }) => {
                 </button>
               </li>
               <li>
-                <button 
+                <button
                   onClick={() => setActivePolicy('faq')}
                   className="hover:text-ren-gold transition-colors text-left"
                 >
@@ -800,28 +799,28 @@ const Footer = ({ language }: { language: Language }) => {
             <h5 className="font-bold uppercase tracking-[0.3em] text-[10px] mb-8 text-ren-ink">{t.newsletter}</h5>
             <p className="text-sm text-ren-ink/40 mb-8 font-light leading-relaxed">{t.newsletterDesc}</p>
             <div className="flex border-b border-ren-gold/20 pb-2">
-              <input 
-                type="email" 
-                placeholder={t.emailPlaceholder} 
+              <input
+                type="email"
+                placeholder={t.emailPlaceholder}
                 className="bg-transparent border-none px-0 py-2 text-sm w-full outline-none font-light"
               />
               <button className="text-ren-ink text-[10px] font-bold uppercase tracking-widest hover:text-ren-gold transition-colors">{t.join}</button>
             </div>
           </div>
         </div>
-        
+
         <div className="pt-12 border-t border-ren-gold/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-[9px] uppercase tracking-[0.4em] text-ren-ink/30 font-bold">
             {t.rights}
           </p>
           <div className="flex space-x-8 text-[9px] uppercase tracking-[0.4em] text-ren-ink/30 font-bold">
-            <button 
+            <button
               onClick={() => setActivePolicy('privacy')}
               className="hover:text-ren-gold transition-colors"
             >
               {t.privacy}
             </button>
-            <button 
+            <button
               onClick={() => setActivePolicy('terms')}
               className="hover:text-ren-gold transition-colors"
             >
@@ -835,14 +834,14 @@ const Footer = ({ language }: { language: Language }) => {
       <AnimatePresence>
         {activePolicy && policy && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActivePolicy(null)}
               className="absolute inset-0 bg-ren-ink/40 backdrop-blur-sm"
             />
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -851,7 +850,7 @@ const Footer = ({ language }: { language: Language }) => {
               <div className="p-8 md:p-12">
                 <div className="flex justify-between items-center mb-10">
                   <h3 className="text-3xl font-serif text-ren-ink">{policy.title}</h3>
-                  <button 
+                  <button
                     onClick={() => setActivePolicy(null)}
                     className="p-2 hover:bg-ren-sand rounded-full transition-colors"
                   >
@@ -861,7 +860,7 @@ const Footer = ({ language }: { language: Language }) => {
 
                 <div className="space-y-6 max-h-[60vh] overflow-y-auto pr-4 custom-scrollbar">
                   {activePolicy === 'faq' ? (
-                    (policy.items as {q: string, a: string}[]).map((item, i) => (
+                    (policy.items as { q: string, a: string }[]).map((item, i) => (
                       <div key={i} className="space-y-2">
                         <h4 className="font-bold text-ren-ink text-sm uppercase tracking-wider">{item.q}</h4>
                         <p className="text-ren-ink/60 text-sm leading-relaxed font-light">{item.a}</p>
@@ -878,7 +877,7 @@ const Footer = ({ language }: { language: Language }) => {
                 </div>
 
                 <div className="mt-12 pt-8 border-t border-ren-gold/10 flex justify-end">
-                  <button 
+                  <button
                     onClick={() => setActivePolicy(null)}
                     className="bg-ren-ink text-white px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-ren-gold transition-all"
                   >
@@ -915,16 +914,16 @@ const PartnersSection = ({ language }: { language: Language }) => {
           <span className="text-[10px] uppercase tracking-[0.4em] text-ren-gold font-bold mb-4 block">{t.label}</span>
           <h2 className="text-4xl font-serif text-ren-ink">{t.title}</h2>
         </div>
-        
+
         <div className="mb-24">
           <p className="text-center text-[10px] uppercase tracking-[0.3em] text-ren-ink/30 mb-12 font-bold">{t.centresLabel}</p>
           <div className="flex flex-wrap justify-center gap-16 md:gap-24 items-center opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
             {centres.map((centre, i) => (
               <div key={i} className="flex flex-col items-center gap-4 group">
                 <div className="w-20 h-20 rounded-full overflow-hidden border border-ren-gold/10 bg-white p-3 group-hover:border-ren-gold/30 transition-all duration-500">
-                  <img 
-                    src={centre.image} 
-                    className="w-full h-full object-contain" 
+                  <img
+                    src={centre.image}
+                    className="w-full h-full object-contain"
                     alt={centre.name}
                     referrerPolicy="no-referrer"
                   />
@@ -940,9 +939,9 @@ const PartnersSection = ({ language }: { language: Language }) => {
             <div className="absolute top-0 right-0 w-40 h-40 bg-ren-gold/5 rounded-bl-full -mr-20 -mt-20 group-hover:bg-ren-gold/10 transition-all duration-700" />
             <div className="flex items-center gap-8 mb-10">
               <div className="w-24 h-24 bg-ren-sand p-4 rounded-3xl flex-shrink-0">
-                <img 
-                  src={LOGOS.motherhoodChoice} 
-                  className="w-full h-full object-contain grayscale opacity-80" 
+                <img
+                  src={LOGOS.motherhoodChoice}
+                  className="w-full h-full object-contain grayscale opacity-80"
                   alt={t.awardTitle}
                   referrerPolicy="no-referrer"
                 />
@@ -973,9 +972,9 @@ const PartnersSection = ({ language }: { language: Language }) => {
               {partners.map((partner, i) => (
                 <div key={i} className="flex flex-col items-center gap-5 group cursor-pointer">
                   <div className="w-full aspect-video bg-white rounded-3xl border border-ren-gold/10 flex items-center justify-center p-6 group-hover:border-ren-gold/30 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-ren-gold/5">
-                    <img 
-                      src={partner.image} 
-                      className="w-full h-full object-contain opacity-40 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all duration-500" 
+                    <img
+                      src={partner.image}
+                      className="w-full h-full object-contain opacity-40 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all duration-500"
                       alt={partner.name}
                       referrerPolicy="no-referrer"
                     />
@@ -1014,15 +1013,15 @@ const ContactSection = ({ language }: { language: Language }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.message || !formData.email) {
       alert(language === 'en' ? "Please fill in all required fields (Name, Email, and Message)." : "请填写所有必填字段（姓名、电子邮件和留言）。");
       return;
     }
 
-    const whatsappNumber = "60142080853"; 
+    const whatsappNumber = "60142080853";
     const servicesText = formData.services.length > 0 ? formData.services.join(", ") : (language === 'en' ? "None selected" : "未选择");
-    
+
     const text = `${language === 'en' ? 'NEW INQUIRY' : '新咨询'}
 ${language === 'en' ? 'Name' : '姓名'}: ${formData.name}
 ${language === 'en' ? 'Email' : '电子邮件'}: ${formData.email}
@@ -1047,25 +1046,25 @@ ${language === 'en' ? 'Message' : '留言'}: ${formData.message}`;
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <div>
                 <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-ren-ink/40 mb-4">{t.form.name}</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   required
                   className="w-full bg-ren-sand/50 border-b border-ren-gold/10 px-0 py-4 outline-none focus:border-ren-gold transition-all font-light"
                   placeholder={t.form.namePlaceholder}
                   value={formData.name}
-                  onChange={e => setFormData({...formData, name: e.target.value})}
+                  onChange={e => setFormData({ ...formData, name: e.target.value })}
                 />
               </div>
 
               <div>
                 <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-ren-ink/40 mb-4">{t.form.email}</label>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   required
                   className="w-full bg-ren-sand/50 border-b border-ren-gold/10 px-0 py-4 outline-none focus:border-ren-gold transition-all font-light"
                   placeholder={t.form.emailPlaceholder}
                   value={formData.email}
-                  onChange={e => setFormData({...formData, email: e.target.value})}
+                  onChange={e => setFormData({ ...formData, email: e.target.value })}
                 />
               </div>
             </div>
@@ -1075,13 +1074,12 @@ ${language === 'en' ? 'Message' : '留言'}: ${formData.message}`;
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {t.form.services.map(service => (
                   <label key={service} className="flex items-center gap-4 cursor-pointer group">
-                    <div 
+                    <div
                       onClick={() => handleServiceChange(service)}
-                      className={`w-5 h-5 rounded-full border flex items-center justify-center transition-all duration-500 ${
-                        formData.services.includes(service) 
-                          ? 'bg-ren-gold border-ren-gold text-white' 
-                          : 'border-ren-gold/20 group-hover:border-ren-gold/40'
-                      }`}
+                      className={`w-5 h-5 rounded-full border flex items-center justify-center transition-all duration-500 ${formData.services.includes(service)
+                        ? 'bg-ren-gold border-ren-gold text-white'
+                        : 'border-ren-gold/20 group-hover:border-ren-gold/40'
+                        }`}
                     >
                       {formData.services.includes(service) && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                     </div>
@@ -1093,17 +1091,17 @@ ${language === 'en' ? 'Message' : '留言'}: ${formData.message}`;
 
             <div>
               <label className="block text-[10px] uppercase tracking-[0.2em] font-bold text-ren-ink/40 mb-4">{t.form.message}</label>
-              <textarea 
+              <textarea
                 required
                 rows={4}
                 className="w-full bg-ren-sand/50 border-b border-ren-gold/10 px-0 py-4 outline-none focus:border-ren-gold transition-all resize-none font-light"
                 placeholder={t.form.messagePlaceholder}
                 value={formData.message}
-                onChange={e => setFormData({...formData, message: e.target.value})}
+                onChange={e => setFormData({ ...formData, message: e.target.value })}
               />
             </div>
 
-            <button 
+            <button
               type="submit"
               className="w-full bg-ren-ink text-white py-6 rounded-full font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-ren-gold transition-all shadow-2xl shadow-ren-ink/20 flex items-center justify-center gap-4"
             >
